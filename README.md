@@ -1,6 +1,6 @@
-## StalkedByTheState: Audio Recording Module 
+## StalkedByTheState: Autonomous Recording Unit 
 
-Welcome to the audio recording enhancement of the **StalkedByTheState** security suite.
+Welcome to the autonomous recording unit enhancement of the **StalkedByTheState** security suite.
 
 ### Introduction:
 While initially conceived to augment security, this module serves a dual purpose. It introduces the concept of an **Autonomous Recording Unit (ARU)**, a term prominently used in bioacoustics. What sets this ARU apart is its ability to precisely synchronize the time of arrival for audio packets. Coupled with a tracking file, this enables pinpoint **Time Difference of Arrival (TDOA) sound localization**.
