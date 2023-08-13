@@ -7,4 +7,5 @@ public:
     jack_nframes_t nframes;
     long long latency;
     decltype(std::chrono::system_clock::now()) arrivalTime;
+    jack_time_t jackTime;
 };

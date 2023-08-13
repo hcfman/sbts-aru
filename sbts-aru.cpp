@@ -30,6 +30,7 @@ std::mutex queue_mutex;
 std::condition_variable data_condition;
 std::atomic<bool> writer_running(true);
 std::atomic<bool> isFileOpen(false);
+std::atomic<bool> isLogJackTime(false);
 
 #if __cplusplus >= 201703L && __has_include(<filesystem>)
 #  include <filesystem>
@@ -47,8 +48,8 @@ std::string currentFileName;
 std::string calculatedTimestamp;
 std::ofstream timestampFile;
 
+
 std::mutex timestamp_mutex;
-std::mutex closeFile_mutex;
 int minutes = 20;
 
 // Queue of samples
@@ -250,7 +251,11 @@ void writer_thread_fn() {
 	if (!data.empty()) {
 	    sf_writef_float(outfile, data.data(), data.size());
 
-	    timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << std::endl;
+        if (isLogJackTime) {
+            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << " " << bufferChunk.jackTime << std::endl;
+        } else {
+            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << std::endl;
+        }
 	    bufferCounter++;
 
             framesLeft -= data.size();
@@ -276,7 +281,8 @@ void writer_thread_fn() {
 
 int process(jack_nframes_t nframes, void *arg) {
     // Directly calculate kimDiff without intermediate storage
-    auto  adjustment = static_cast<int64_t>(jack_get_time() - static_cast<int64_t>(jack_frames_to_time(client, jack_last_frame_time(client))));
+    jack_time_t jackTime = jack_get_time();
+    auto  adjustment = static_cast<int64_t>(jackTime - static_cast<int64_t>(jack_frames_to_time(client, jack_last_frame_time(client))));
 
     // Get the latency
     jack_latency_range_t latencyRange;
@@ -291,6 +297,7 @@ int process(jack_nframes_t nframes, void *arg) {
     chunk.nframes = nframes;
     chunk.latency = latencyRange.min;
     chunk.arrivalTime = std::chrono::system_clock::now() - std::chrono::microseconds(adjustment);
+    chunk.jackTime = jackTime;
     sampleQueue.enqueue(chunk);
 
     data_condition.notify_all();  // Notify the writer thread to finish up
@@ -306,7 +313,7 @@ int main(int argc, char *argv[]) {
     const char **ports;
 
     int c;
-    while((c = getopt(argc, argv, "n:c:s:p:t:b:")) != -1) {
+    while((c = getopt(argc, argv, "n:c:s:p:t:b:j")) != -1) {
         switch(c) {
             case 'n':
                 name = optarg;
@@ -342,6 +349,9 @@ int main(int argc, char *argv[]) {
                     std::cerr << "Input bitrate value is out of range for a integer\n";
                     exit(1);
                 }
+                break;
+            case 'j':
+                isLogJackTime = true;
                 break;
             case '?':
                 std::cerr << "Unknown option: -" << optopt << '\n';
