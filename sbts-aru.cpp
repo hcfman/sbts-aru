@@ -22,22 +22,27 @@
 #if __cplusplus >= 201703L && __has_include(<filesystem>)
 #  include <filesystem>
 #elif __has_include(<experimental/filesystem>)
+
 #  include <experimental/filesystem>
+
 #endif
 
 std::queue<BufferChunk> data_queue;
 std::mutex queue_mutex;
 std::condition_variable data_condition;
 std::atomic<bool> writer_running(true);
+std::atomic<bool> closingCurrentFile(false);
 std::atomic<bool> isFileOpen(false);
 std::atomic<bool> isLogJackTime(false);
 
 #if __cplusplus >= 201703L && __has_include(<filesystem>)
 #  include <filesystem>
-   namespace fs = std::filesystem;
+namespace fs = std::filesystem;
 #elif __has_include(<experimental/filesystem>)
+
 #  include <experimental/filesystem>
-   namespace fs = std::experimental::filesystem;
+
+namespace fs = std::experimental::filesystem;
 #endif
 
 jack_client_t *client;
@@ -84,7 +89,7 @@ std::string getDateTimestampFromTime(std::chrono::time_point<std::chrono::system
     auto us = std::chrono::duration_cast<std::chrono::microseconds>(theTime.time_since_epoch()) % 1000000;
 
     std::time_t t = std::chrono::system_clock::to_time_t(theTime);
-    std::tm* time = std::localtime(&t);
+    std::tm *time = std::localtime(&t);
 
     std::stringstream ss;
     ss << std::put_time(time, "%Y-%m-%d_%H-%M-%S") << "." << std::setfill('0') << std::setw(6) << us.count();
@@ -96,7 +101,7 @@ std::string getTimestampFromTime(std::chrono::time_point<std::chrono::system_clo
     auto us = std::chrono::duration_cast<std::chrono::microseconds>(theTime.time_since_epoch()) % 1000000;
 
     std::time_t t = std::chrono::system_clock::to_time_t(theTime);
-    std::tm* time = std::localtime(&t);
+    std::tm *time = std::localtime(&t);
 
     std::stringstream ss;
     ss << std::put_time(time, "%H-%M-%S") << "." << std::setfill('0') << std::setw(6) << us.count();
@@ -108,14 +113,15 @@ std::string getDirectoryStructure() {
     auto now = std::chrono::system_clock::now();
 
     std::time_t t = std::chrono::system_clock::to_time_t(now);
-    std::tm* time = std::localtime(&t);
+    std::tm *time = std::localtime(&t);
 
     std::stringstream ss;
     ss << std::put_time(time, "%Y/%Y-%m/%Y-%m-%d");
     return ss.str();
 }
 
-std::chrono::time_point<std::chrono::system_clock> calcStarttime(jack_nframes_t nframes, long long latency, std::chrono::time_point<std::chrono::system_clock> arrivalTime) {
+std::chrono::time_point<std::chrono::system_clock> calcStarttime(jack_nframes_t nframes, long long latency,
+                                                                 std::chrono::time_point<std::chrono::system_clock> arrivalTime) {
     long long buffer_time_in_microseconds = (static_cast<double>(nframes + latency)) * 1e6 / outputBitrate;
     auto startTime = arrivalTime - std::chrono::microseconds(buffer_time_in_microseconds);
     return startTime;
@@ -163,16 +169,17 @@ void openNewFile(std::chrono::time_point<std::chrono::system_clock> startTime) {
     isFileOpen = true;
 }
 
-std::string replaceSuffix(std::string fromString, const std::string& fromSuffix, const std::string& toSuffix) {
-    if(fromString.size() > fromSuffix.size() &&
-       fromString.substr(fromString.size() - fromSuffix.size()) == fromSuffix) {
+std::string replaceSuffix(std::string fromString, const std::string &fromSuffix, const std::string &toSuffix) {
+    if (fromString.size() > fromSuffix.size() &&
+        fromString.substr(fromString.size() - fromSuffix.size()) == fromSuffix) {
         fromString.replace(fromString.end() - fromSuffix.size(), fromString.end(), toSuffix);
     }
 
     return fromString;
 }
 
-void finish_file(jack_nframes_t nframes, long long latency, std::chrono::time_point<std::chrono::system_clock> arrivalTime) {
+void
+finish_file(jack_nframes_t nframes, long long latency, std::chrono::time_point<std::chrono::system_clock> arrivalTime) {
     sf_close(outfile);
     timestampFile.close();
 
@@ -194,7 +201,7 @@ void finish_file(jack_nframes_t nframes, long long latency, std::chrono::time_po
     // Check if the extension was found
     std::string startTimeString;
     if (extPos != std::string::npos) {
-	startTimeString = basenameWithExt.substr(0, extPos);
+        startTimeString = basenameWithExt.substr(0, extPos);
     }
 
     // Calculate a new name for the completed file
@@ -207,18 +214,20 @@ void finish_file(jack_nframes_t nframes, long long latency, std::chrono::time_po
     std::experimental::filesystem::path p(oldName);
     std::experimental::filesystem::path dir = p.parent_path();
 
-    std::experimental::filesystem::path newName = dir / (startTimeString + "--" + name + "--" + getDateTimestampFromTime(endTime) + ".flac");
+    std::experimental::filesystem::path newName =
+            dir / (startTimeString + "--" + name + "--" + getDateTimestampFromTime(endTime) + ".flac");
 #endif
 
     std::rename(oldName.c_str(), newName.c_str());
     std::cout << "Closing to: " << newName << std::endl << std::endl;
-    std::rename(replaceSuffix(oldName, ".flac", ".tracking").c_str(), replaceSuffix(newName, ".flac", ".tracking").c_str());
+    std::rename(replaceSuffix(oldName, ".flac", ".tracking").c_str(),
+                replaceSuffix(newName, ".flac", ".tracking").c_str());
 
     isFileOpen = false;
     bufferCounter = 0;
 }
 
-extern "C" void handle(int sig) { // must be declared extern "C" to match type required by std::signal
+extern "C" void handleInt(int sig) { // must be declared extern "C" to match type required by std::signal
     std::cout << "Signal received: " << sig << std::endl;
 
     writer_running = false;
@@ -228,43 +237,60 @@ extern "C" void handle(int sig) { // must be declared extern "C" to match type r
     std::cout << "File name " << currentFileName << std::endl;
 }
 
+
+extern "C" void handleHup(int sig) { // must be declared extern "C" to match type required by std::signal
+    std::cout << "HUP signal received: " << sig << std::endl;
+
+    closingCurrentFile = true;
+    data_condition.notify_all();  // Notify the writer thread to finish up
+
+    printf("Closing current file...");
+    std::cout << "File name " << currentFileName << std::endl;
+}
+
 void writer_thread_fn() {
     BufferChunk bufferChunk;
     std::vector<float> data;
-    
+
     while (true) {
-	{
-	    std::unique_lock<std::mutex> lock(queue_mutex);
-	    data_condition.wait(lock, [] { return !sampleQueue.empty() || !writer_running; });
-	}
-        
-    bufferChunk = sampleQueue.dequeue();
+        std::unique_lock<std::mutex> lock(queue_mutex);
+        data_condition.wait(lock, [] { return !sampleQueue.empty() || !writer_running; });
 
-	data = bufferChunk.audioFrames;
+        bufferChunk = sampleQueue.dequeue();
 
-	auto startTime = calcStarttime(bufferChunk.nframes, bufferChunk.latency, bufferChunk.arrivalTime);
+        data = bufferChunk.audioFrames;
 
-	if (!isFileOpen) {
-	    openNewFile(startTime);
-	}
+        auto startTime = calcStarttime(bufferChunk.nframes, bufferChunk.latency, bufferChunk.arrivalTime);
 
-	if (!data.empty()) {
-	    sf_writef_float(outfile, data.data(), data.size());
-
-        if (isLogJackTime) {
-            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << " " << bufferChunk.jackLastFrameTime << std::endl;
-        } else {
-            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << std::endl;
+        if (!isFileOpen) {
+            openNewFile(startTime);
         }
-	    bufferCounter++;
+
+        if (!data.empty()) {
+            // Write the buffer of frames to the audio file
+            sf_writef_float(outfile, data.data(), data.size());
+
+            // Update the tracking file
+            if (isLogJackTime) {
+                timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << " "
+                              << bufferChunk.jackLastFrameTime << std::endl;
+            } else {
+                timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << std::endl;
+            }
+            bufferCounter++;
 
             framesLeft -= data.size();
 
             if (!writer_running) {
-                framesLeft=0;
+                framesLeft = 0;
             }
 
-            if(framesLeft <= 0) {
+            if (closingCurrentFile) {
+                framesLeft = 0;
+                closingCurrentFile = false;
+            }
+
+            if (framesLeft <= 0) {
                 finish_file(bufferChunk.nframes, bufferChunk.latency, bufferChunk.arrivalTime);
 
                 framesLeft = chunkDuration * outputBitrate;
@@ -275,21 +301,22 @@ void writer_thread_fn() {
                 }
             }
 
-	}
+        }
     }
 }
 
 int process(jack_nframes_t nframes, void *arg) {
     // Directly calculate kimDiff without intermediate storage
     jack_nframes_t jackLastFrameTime = jack_last_frame_time(client);
-    auto  adjustment = static_cast<int64_t>(jack_get_time() - static_cast<int64_t>(jack_frames_to_time(client, jackLastFrameTime)));
+    auto adjustment = static_cast<int64_t>(jack_get_time() -
+                                           static_cast<int64_t>(jack_frames_to_time(client, jackLastFrameTime)));
 
     // Get the latency
     jack_latency_range_t latencyRange;
     jack_port_get_latency_range(input_port, JackCaptureLatency, &latencyRange);
 
     // Vector from the  buffer
-    auto *in = (jack_default_audio_sample_t*) jack_port_get_buffer(input_port, nframes);
+    auto *in = (jack_default_audio_sample_t *) jack_port_get_buffer(input_port, nframes);
 
     // Enqueue samples instead of writing to file
     BufferChunk chunk;
@@ -306,15 +333,16 @@ int process(jack_nframes_t nframes, void *arg) {
 }
 
 void usage(char *argv[]) {
-    std::cerr << "Usage: " << argv[0] << " -n <Name handle for the source> -c <Name of this client program> -p <name of the inputport> -s <jackd source> -t <time in minutes> -b <input bitrate> [-j]\n";
+    std::cerr << "Usage: " << argv[0]
+              << " -n <Name handleInt for the source> -c <Name of this client program> -p <name of the inputport> -s <jackd source> -t <time in minutes> -b <input bitrate> [-j]\n";
 }
 
 int main(int argc, char *argv[]) {
     const char **ports;
 
     int c;
-    while((c = getopt(argc, argv, "n:c:s:p:t:b:j")) != -1) {
-        switch(c) {
+    while ((c = getopt(argc, argv, "n:c:s:p:t:b:j")) != -1) {
+        switch (c) {
             case 'n':
                 name = optarg;
                 break;
@@ -330,10 +358,10 @@ int main(int argc, char *argv[]) {
             case 't':
                 try {
                     minutes = std::stoi(optarg);
-                } catch (const std::invalid_argument& e) {
+                } catch (const std::invalid_argument &e) {
                     std::cerr << "Value of time is invalid, no conversion could be performed\n";
                     exit(1);
-                } catch (const std::out_of_range& e) {
+                } catch (const std::out_of_range &e) {
                     std::cerr << "Time value is out of range for a integer\n";
                     exit(1);
                 }
@@ -342,10 +370,10 @@ int main(int argc, char *argv[]) {
             case 'b':
                 try {
                     outputBitrate = std::stoi(optarg);
-                } catch (const std::invalid_argument& e) {
+                } catch (const std::invalid_argument &e) {
                     std::cerr << "Value of input bitrate is invalid, no conversion could be performed\n";
                     exit(1);
-                } catch (const std::out_of_range& e) {
+                } catch (const std::out_of_range &e) {
                     std::cerr << "Input bitrate value is out of range for a integer\n";
                     exit(1);
                 }
@@ -374,7 +402,7 @@ int main(int argc, char *argv[]) {
     // Start the writer thread
     std::thread writer_thread(writer_thread_fn);
 
-    if((client = jack_client_open(clientName.c_str(), JackNullOption, &status)) == nullptr) {
+    if ((client = jack_client_open(clientName.c_str(), JackNullOption, &status)) == nullptr) {
         std::cerr << "jack server not running?" << std::endl;
         unlink(currentFileName.c_str());
         return 1;
@@ -396,7 +424,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    ports = jack_get_ports (client, inputSource.c_str(), nullptr, JackPortIsOutput);
+    ports = jack_get_ports(client, inputSource.c_str(), nullptr, JackPortIsOutput);
 
     if (ports == nullptr) {
         std::cerr << "no available ports" << std::endl;
@@ -404,14 +432,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    if (jack_connect (client, ports[0], jack_port_name (input_port))) {
+    if (jack_connect(client, ports[0], jack_port_name(input_port))) {
         unlink(currentFileName.c_str());
         std::cerr << "cannot connect input ports" << std::endl;
         return 1;
     }
 
-    std::signal(SIGTERM, handle);
-    std::signal(SIGINT, handle);
+    std::signal(SIGTERM, handleInt);
+    std::signal(SIGINT, handleInt);
+    std::signal(SIGHUP, handleHup);
 
     // Loop forever and wait for the writer loop to terminate
     while (writer_running) {
