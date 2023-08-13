@@ -252,7 +252,7 @@ void writer_thread_fn() {
 	    sf_writef_float(outfile, data.data(), data.size());
 
         if (isLogJackTime) {
-            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << " " << bufferChunk.jackTime << std::endl;
+            timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << " " << bufferChunk.jackLastFrameTime << std::endl;
         } else {
             timestampFile << bufferCounter << " " << getTimestampFromTime(startTime) << std::endl;
         }
@@ -281,8 +281,8 @@ void writer_thread_fn() {
 
 int process(jack_nframes_t nframes, void *arg) {
     // Directly calculate kimDiff without intermediate storage
-    jack_time_t jackTime = jack_get_time();
-    auto  adjustment = static_cast<int64_t>(jackTime - static_cast<int64_t>(jack_frames_to_time(client, jack_last_frame_time(client))));
+    jack_nframes_t jackLastFrameTime = jack_last_frame_time(client);
+    auto  adjustment = static_cast<int64_t>(jack_get_time() - static_cast<int64_t>(jack_frames_to_time(client, jackLastFrameTime)));
 
     // Get the latency
     jack_latency_range_t latencyRange;
@@ -297,7 +297,7 @@ int process(jack_nframes_t nframes, void *arg) {
     chunk.nframes = nframes;
     chunk.latency = latencyRange.min;
     chunk.arrivalTime = std::chrono::system_clock::now() - std::chrono::microseconds(adjustment);
-    chunk.jackTime = jackTime;
+    chunk.jackLastFrameTime = jackLastFrameTime;
     sampleQueue.enqueue(chunk);
 
     data_condition.notify_all();  // Notify the writer thread to finish up
@@ -306,7 +306,7 @@ int process(jack_nframes_t nframes, void *arg) {
 }
 
 void usage(char *argv[]) {
-    std::cerr << "Usage: " << argv[0] << " -n <Name handle for the source> -c <Name of this client program> -p <name of the inputport> -s <jackd source> -t <time in minutes> -b <input bitrate>\n";
+    std::cerr << "Usage: " << argv[0] << " -n <Name handle for the source> -c <Name of this client program> -p <name of the inputport> -s <jackd source> -t <time in minutes> -b <input bitrate> [-j]\n";
 }
 
 int main(int argc, char *argv[]) {
