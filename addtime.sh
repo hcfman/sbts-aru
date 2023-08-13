@@ -2,10 +2,10 @@
 
 export LC_ALL=C
 
-# the input time offset
+# The first time, can have a minus sign in front
 time_offset="$1"
 
-# the actual time
+# The second time, normally this would be something like 0:0:5.34343 to add the seconds offset to a sound event such as expressed in raven lite
 actual_time="$2"
 
 subtract=false
@@ -17,16 +17,14 @@ fi
 # convert both the times into seconds
 
 if $subtract ; then
-    #offset_seconds=$(echo $time_offset | awk -F'[:-]' '{ print -(($1 * 3600) + ($2 * 60) + $3) }')
     offset_seconds=$(echo $time_offset | awk -F'[:-]' '{ printf "scale=6;-((%s * 3600) + (%s * 60) + %s)\n", $1, $2, $3 }'|bc)
 else
-    #offset_seconds=$(echo $time_offset | awk -F'[:-]' '{ print ($1 * 3600) + ($2 * 60) + $3 }')
     offset_seconds=$(echo $time_offset | awk -F'[:-]' '{ printf "scale=6;(%s * 3600) + (%s * 60) + %s\n", $1, $2, $3 }'|bc)
 fi
 
 actual_seconds=$(echo $actual_time | awk -F'[:-]' '{ printf "scale=6; (%s * 3600) + (%s * 60) + %s\n", $1, $2, $3 }'|bc)
 
-# add the times
+# add the times (Or subtract one from the other if the first time has a minus sign in front
 total_seconds=$(echo "scale=6; $offset_seconds + $actual_seconds" | bc)
 
 # convert the result back into hh:mm:ss format
