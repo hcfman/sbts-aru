@@ -7,6 +7,8 @@ from opensoundscape.localization import localize
 
 # Field test locations for simulated localization. Somewhere North of the Veluwe the Netherlands at this location in
 # cartesian co-ordinates: 691329.075,5780703.643
+# You can obtain the cartesian co-ordinates with a converter such as https://coordinates-converter.com/
+# Locate the location of interest in the map and then get the co-ordinates from the fields marked UTM co-ordinates
 receiver_locations = [[687843.680,5781127.673], [692642.458,5781862.946], [689646.545,5779031.623],[692686.788,5779207.392]]
 
 # Travel times in seconds for each at 22 degrees C (Speed of sound around 343m/s)
