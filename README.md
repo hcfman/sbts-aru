@@ -14,6 +14,26 @@ While initially conceived to augment security, this module serves a dual purpose
 ### Potential Use Cases:
 - **Bioacoustic Studies:** This technology can be instrumental for researchers aiming to localize various species based on their vocalizations or other sound signatures.
 
+### Setup Instructions
+
+1. **Directory Structure**: Based on the `sample_etc_rc_local` in `/etc/rc.local`:
+   - Ensure there is a `disk` directory within the `pi` user directory.
+   - The `sbts-aru` code should be checked out in this directory.
+   - Inside the `disk` directory, create a sub-directory. This sub-directory's name should match the hostname, but replace all "-" with "_".
+
+2. **Prerequisites**:
+   - Install `jackd2`.
+   - Plug in a single-channel ALSA-compatible microphone or sound card.
+
+3. **Running Programs**:
+   - Start `jackd` with the following command:
+     ```bash
+     JACK_NO_AUDIO_RESERVATION=1 /usr/bin/jackd -R -dalsa -r44100 -p2048 -i1 -n2 -D -Chw:$RECORDER,0 -Phw:$RECORDER,0 -S > /dev/null 2>&1 &
+     ```
+   - Navigate to the `audio*` directory and execute `sbts-aru` as follows:
+     ```bash
+     ../sbts-aru/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 5 -b 44100 > /dev/null 2>&1 &
+     ```
 ---
 
 I hope this module proves invaluable to both security enthusiasts and bioacoustic researchers alike. If you have questions or feedback, don't hesitate to  reach out.
