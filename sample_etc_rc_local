@@ -1,0 +1,52 @@
+#!/bin/sh
+
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+# Later on I'll explain how to create partitioning and support a read-only overlay file system mount of the system disk to
+# facilitate resilience for the SD card against power cuts, then these mounts will make sense
+
+#fsck -y /dev/mmcblk0p6
+#mount /dev/mmcblk0p6 /home/pi/disk
+
+(
+    while ! chronyc sources|grep '^#\* PPS.*ns\]' > /dev/null ; do
+	sleep 1
+    done
+
+    chronyc makestep
+
+    AUDIO_NAME=$(hostname|perl -np -e 's/-/_/g')
+    AUDIO_USER=pi
+    HOSTNAME=$(hostname)
+    RECORDER=$(arecord -l|perl -n -e 'print $1, "\n" if /^card (\d+): Device/')
+
+    su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/log && uptime > time_to_sync 2>&1"
+    su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/log && /home/$AUDIO_USER/bin/get_location.sh > location 2>&1"
+
+    if [ ! -z "$RECORDER" ] ; then
+	echo Matches $RECORDER
+
+	amixer -c "$RECORDER" sset 'Mic' 33db
+
+	su - $AUDIO_USER -c "JACK_NO_AUDIO_RESERVATION=1 /usr/bin/jackd -R -dalsa -r44100 -p2048 -i1 -n2 -D -Chw:$RECORDER,0 -Phw:$RECORDER,0 -S > /dev/null 2>&1 &"
+
+	sleep 1
+
+	su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/$HOSTNAME ; ../sbts-aru/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 10 -b 44100 > /dev/null 2>&1 &"
+    fi
+
+    # Turn off the power and activity leds
+    echo 0 | sudo tee /sys/devices/platform/leds/leds/led0/brightness
+    echo 0 | sudo tee /sys/devices/platform/leds/leds/led1/brightness
+
+)&
+
+# Turn of HDMI
+/opt/vc/bin/tvservice -o
+
+exit 0
+
+

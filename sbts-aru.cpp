@@ -1,3 +1,4 @@
+// Copyright (C) Kim Hendrikse, 2023
 #include <fstream>
 #include <iostream>
 #include <jack/jack.h>
