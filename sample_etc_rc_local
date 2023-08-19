@@ -41,7 +41,7 @@ fi
 
     # Turn off the power and activity leds
     echo 0 | sudo tee /sys/devices/platform/leds/leds/led0/brightness
-    echo 0 | sudo tee /sys/devices/platform/leds/leds/led1/brightness
+    #echo 0 | sudo tee /sys/devices/platform/leds/leds/led1/brightness
 
 )&
 
