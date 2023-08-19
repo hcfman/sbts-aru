@@ -18,6 +18,7 @@ fi
 
     chronyc makestep
 
+    export LC_ALL=C
     AUDIO_NAME=$(hostname|perl -np -e 's/-/_/g')
     AUDIO_USER=pi
     HOSTNAME=$(hostname)
