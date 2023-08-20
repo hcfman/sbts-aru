@@ -56,19 +56,55 @@ To mitigate this problem and greatly reduce corruption and un-bootable systems t
 
 If you wish to setup a production unit that is resilient to unplanned power cycles you will need to shrink the main OS partion and create some new ones by accessing this SD card through another Linux system and follow the instructions below. If you don't wish to deal with this complexity yet, then skip these resizing and partitioning steps.
 
-Shrink the partition and add new ones using the following commands:
+Shrink the partition and add new ones using the following commands. The instructions below are using /dev/sdc as an example. You should run the dmesg command as root just after inserting your SD card to see which device is actually used on your system. Be very sure you are operation on the correct one:
 
+Shrink the operating system partion
 ```bash
 resize2fs -f -M /dev/sdc2
 ```
 
-...[The partitioning steps]...
+Now create extra partions with the fdisk command as root as follows. This will create a swap partion on 3, a partion for potential configuraton file usage on 5 and a writeable data partion on 6:
+```bash
+esize2fs -f -M /dev/sdc2
 
+fdisk /dev/sdc
+d
+2
+n
+p
+2
+532480
++4G
+N
+n
+p
+3
+8921088
++5G
+n
+e
+19406848
+<ret>
+n
+<ret>
++512MB
+n
+<ret>
+<ret>
+t
+3
+82
+w
+```
+
+Now expand the OS partition to fill the space allocated for it (4GB), create the swap, config and data partitons and label them:
 ```bash
 resize2fs -f /dev/sdc2
 mkswap /dev/sdc3
 mkfs -t ext4 /dev/sdc5
 mkfs -t ext4 /dev/sdc6
+e2label /dev/sdc5 SbtsConfig
+e2label /dev/sdc6 SbtsDisk
 ```
 
 ...[And so on]
