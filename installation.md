@@ -1,5 +1,4 @@
-
-[O[I# Raspberry Pi Setup Guide
+# Raspberry Pi Setup Guide
 
 This guide walks through the steps for configuring a Raspberry Pi. This guide is tailored towards specific tasks but can be adapted for various applications.
 
@@ -21,7 +20,15 @@ This guide walks through the steps for configuring a Raspberry Pi. This guide is
 
 ## Write SD Card Image
 
-To write the SD card image, follow your SD card writing tool's guide.
+To write the SD card image, follow the raspberry pi SD card writing tool's guide here:
+
+[https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)
+
+For the raspberry pi zero you should choose a 32-bit verion of raspbian. The options can be found here:
+
+[https://www.raspberrypi.com/software/operating-systems/](https://www.raspberrypi.com/software/operating-systems/)
+
+For other versions of raspberry pi from 3 up choose a 64-bit OS
 
 ## Initial Raspberry Pi Configurations
 
