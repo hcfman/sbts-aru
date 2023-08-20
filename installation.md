@@ -50,6 +50,12 @@ reboot
 
 ## Disk Partitioning
 
+SD cards have always been very easy to corrup through unplanned power cycles. In my experience they are also sensitive to power corruption through planned power cycles if the main root file system is mounted read-write.
+
+To mitigate this problem and greatly reduce corruption and un-bootable systems that rely on writing to SD cards I recommend setting up a memory-based overlay file system setup whereby the main OS is always only mounted read-only, writes to the OS are written to a memory layer and and reads come from the underlying SD card, unless it was previously written in which case it comes from the memory layer. The OS is only ever mounted read-only in this setup.
+
+If you wish to setup a production unit that is resilient to unplanned power cycles you will need to shrink the main OS partion and create some new ones by accessing this SD card through another Linux system and follow the instructions below. If you don't wish to deal with this complexity yet, then skip these resizing and partitioning steps.
+
 Shrink the partition and add new ones using the following commands:
 
 ```bash
