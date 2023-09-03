@@ -36,7 +36,7 @@ mount /dev/mmcblk0p6 /home/pi/disk
 
 	sleep 1
 
-	su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/$HOSTNAME ; /home/$AUDIO_USER/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 10 -b 44100 > /dev/null 2>&1 &"
+	su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/$HOSTNAME ; /home/$AUDIO_USER/sbts-aru/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 10 -b 44100 > /dev/null 2>&1 &"
     fi
 
     # Turn off the power and activity leds
