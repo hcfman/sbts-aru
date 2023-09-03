@@ -48,5 +48,3 @@ mount /dev/mmcblk0p6 /home/pi/disk
 #/opt/vc/bin/tvservice -o
 
 exit 0
-
-
