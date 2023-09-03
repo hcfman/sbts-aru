@@ -8,8 +8,8 @@ fi
 # Later on I'll explain how to create partitioning and support a read-only overlay file system mount of the system disk to
 # facilitate resilience for the SD card against power cuts, then these mounts will make sense
 
-#fsck -y /dev/mmcblk0p6
-#mount /dev/mmcblk0p6 /home/pi/disk
+fsck -y /dev/mmcblk0p6
+mount /dev/mmcblk0p6 /home/pi/disk
 
 (
     while ! chronyc sources|grep '^#\* PPS.*ns\]' > /dev/null ; do
@@ -30,7 +30,7 @@ fi
     if [ ! -z "$RECORDER" ] ; then
 	echo Matches $RECORDER
 
-	amixer -c "$RECORDER" sset 'Mic' 33db
+	amixer -c "$RECORDER" sset 'Mic' 27db
 
 	su - $AUDIO_USER -c "JACK_NO_AUDIO_RESERVATION=1 /usr/bin/jackd -R -dalsa -r44100 -p2048 -i1 -n2 -D -Chw:$RECORDER,0 -Phw:$RECORDER,0 -S > /dev/null 2>&1 &"
 
@@ -40,13 +40,12 @@ fi
     fi
 
     # Turn off the power and activity leds
-    echo 0 | sudo tee /sys/devices/platform/leds/leds/led0/brightness
-    #echo 0 | sudo tee /sys/devices/platform/leds/leds/led1/brightness
+    #echo 0 | sudo tee /sys/devices/platform/leds/leds/led0/brightness
 
 )&
 
 # Turn of HDMI
-/opt/vc/bin/tvservice -o
+#/opt/vc/bin/tvservice -o
 
 exit 0
 
