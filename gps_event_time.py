@@ -17,7 +17,7 @@ def read_tracking_time(tracking_filename, index):
                 return time_str
     return None
 
-def add_seconds_to_filename(filename, seconds_offset, buffer_size):
+def add_seconds_to_filename(filename, seconds_offset, buffer_size, show_time_only):
     date_time_str = filename.split("--")[0]
     date_time_obj = datetime.strptime(date_time_str, "%Y-%m-%d_%H-%M-%S.%f")
 
@@ -47,7 +47,11 @@ def add_seconds_to_filename(filename, seconds_offset, buffer_size):
 
     # Add the remainder to the datetime object
     new_date_time_obj = date_time_obj + timedelta(seconds=whole_seconds, microseconds=microseconds)
-    new_date_time_str = new_date_time_obj.strftime("%Y-%m-%d_%H-%M-%S.%f")
+
+    if show_time_only:
+        new_date_time_str = new_date_time_obj.strftime("%H-%M-%S.%f")
+    else:
+        new_date_time_str = new_date_time_obj.strftime("%Y-%m-%d_%H-%M-%S.%f")
 
     print(new_date_time_str)
 
@@ -60,4 +64,4 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    add_seconds_to_filename(args.filename, args.seconds, args.buffer_size)
+    add_seconds_to_filename(args.filename, args.seconds, args.buffer_size, args.show_time_only)
