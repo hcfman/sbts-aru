@@ -1,19 +1,17 @@
 #!/bin/bash
 
 # Check if required arguments are provided
-if [[ $# -ne 8 ]]; then
-    echo "Usage: $0 -f <from-time> -t <to-time> -e <extension opus or m4a> -b <bitrate in kb i.e. 35>"
+if [[ $# -ne 4 ]]; then
+    echo "Usage: $0 -f <from-time> -t <to-time>"
     exit 1
 fi
 
 # Parse command line arguments
-while getopts f:t:e:b: flag
+while getopts f:t: flag
 do
     case "${flag}" in
         f) from_time=${OPTARG};;
         t) to_time=${OPTARG};;
-        e) extension=${OPTARG};;
-        b) bitrate=${OPTARG};;
     esac
 done
 
@@ -70,7 +68,7 @@ for year_dir in $year_dirs; do
 
             echo "Processing day: $day_dir"
 
-            for file in $(find $day_dir -type f -name "*--*--*.wav" | sort); do
+            for file in $(find $day_dir -type f \( -name "*.flac" -o -name "*.tracking" \) | sort); do
                 filename_date=$(basename $file)
                 filename_date=${filename_date:0:23}
 
@@ -78,21 +76,19 @@ for year_dir in $year_dirs; do
                     continue
                 fi
 
-                audio_file="${file%.wav}.${extension}"
-                echo Processing file: ${file##*/}
-                if [[ ! -f $audio_file ]]; then
-                    if [ "$extension" == "m4a" ] ; then
-                        codec="aac"
-                    else
-                        codec="libopus"
-                        extension="opus"
-                    fi
-
-                    if ffmpeg -i $file -c:a $codec -b:a ${bitrate}k $audio_file; then
-                        rm $file
-                    fi
-                fi
+		echo rm $file
+		rm $file
             done
+
+	    if [ -z "$(ls -A $day_dir)" ] ; then
+		echo rmdir "$day_dir"
+		rmdir "$day_dir"
+	    fi
         done
+
+	if [ -z "$(ls -A $month_dir)" ] ; then
+	    echo rmdir "$month_dir"
+	    rmdir "$month_dir"
+	fi
     done
 done
