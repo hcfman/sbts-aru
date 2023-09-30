@@ -239,17 +239,6 @@ make_readonly_and_reboot() {
     reboot
 }
 
-add_crontabs() {
-    echo "# $(perl -e 'print int(rand(59))') $(perl -e 'print int(rand(23))') * * * su $SUDO_USER - -c \"$SUDO_USER_HOME/sbts-bin/mount_readwrite\";(sleep 2; /usr/bin/certbot --apache --renew-hook \"systemctl restart apache2\" renew > $SUDO_USER_HOME/disk/log/certbot.log 2>&1);su $SUDO_USER - -c \"$SUDO_USER_HOME/sbts-bin/mount_readonly\"" > /tmp/root_crontab || abort "Can't create root crontab file"
-
-    crontab /tmp/root_crontab || abort "Can't set root crontab to renew letsencrypt certificate"
-    rm /tmp/root_crontab > /dev/null 2>&1
-
-    echo "# $(perl -e 'print int(rand(59))') $(perl -e 'print int(rand(23))') * * *  $SUDO_USER_HOME/sbts-local/dynu_client.py > $SUDO_USER_HOME/disk/log/dynu_client.log 2>&1" > /tmp/user_crontab
-    sudo -H -u "$SUDO_USER" crontab /tmp/user_crontab || abort "Can't install dynu client into user crontab"
-    rm /tmp/user_crontab > /dev/null 2>&1
-}
-
 initialize_sbts_bin() {
     echo ""
     echo "Initializing sbts-bin"
@@ -465,8 +454,6 @@ install_python_modules
 update_bashrc
 
 update_etc_rc
-
-#add_crontabs
 
 initialize_sbts_bin
 
