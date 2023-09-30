@@ -485,4 +485,6 @@ make_readonly
 
 enable_partitioning
 
+install_overlayfs
+
 reboot
