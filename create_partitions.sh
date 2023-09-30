@@ -22,6 +22,7 @@ resize2fs -f /dev/mmcblk0p2
 /usr/sbin/mkfs.ext4 /dev/mmcblk0p6
 e2label /dev/mmcblk0p5 SbtsConfig
 e2label /dev/mmcblk0p6 SbtsDisk
+mkswap /dev/mmcblk0p3
 mkdir /tmp/mnt
 mount /dev/mmcblk0p6 /tmp/mnt
 mkdir /tmp/mnt/log

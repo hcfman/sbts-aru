@@ -404,9 +404,7 @@ fix_etc_fstab() {
     echo "Fix /etc/fstab"
     echo ""
 
-    local PARTUID
-    PARTUID="$(grep '^PARTUUID=.*-02' /etc/fstab | awk '{print $1}')"
-    echo "${PARTUID%2}3 swap swap defaults,noatime  0       1" >> /etc/fstab
+    echo "/dev/mmcblk0p3 swap swap defaults  0       1" >> /etc/fstab
 }
 
 make_readonly() {
