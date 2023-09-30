@@ -106,7 +106,6 @@ set_hostname() {
 
     my_hostname=$(get_non_blank "What hostname would you like? The hostname is used in the name of the audio files, e.g. audio-sbts1" "Hostname" "my_hostname")
     echo "$my_hostname" > /etc/hostname
-    break
 
     echo ""
 }
