@@ -99,6 +99,17 @@ ask_about_gps() {
     echo ""
 }
 
+set_hostname() {
+    echo ""
+    while [ 1 ] ; do
+        my_hostname=$(get_non_blank "What hostname would you like? The hostname is used in the name of the audio files, e.g. audio-sbts1" "Hostname" "my_hostname")
+        echo "$my_hostname > /etc/hostname"
+        break
+    done
+
+    echo ""
+}
+
 update_pkg_registry() {
     if [ ! "$UPDATED" ] ; then
         echo Updating the package registry
@@ -439,6 +450,8 @@ fi
 SUDO_USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
 ask_about_gps
+
+set_hostname
 
 update_pkg_registry
 
