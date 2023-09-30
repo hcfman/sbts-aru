@@ -5,11 +5,12 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-# Later on I'll explain how to create partitioning and support a read-only overlay file system mount of the system disk to
-# facilitate resilience for the SD card against power cuts, then these mounts will make sense
+export AUDIO_USER="$(getent passwd 1000|cut -d: -f1)"
 
+fsck -y /dev/mmcblk0p5
 fsck -y /dev/mmcblk0p6
-mount /dev/mmcblk0p6 /home/pi/disk
+mount /dev/mmcblk0p5 -o ro "/home/$AUDIO_USER/config"
+mount /dev/mmcblk0p6 "/home/$AUDIO_USER/disk"
 
 (
     while ! chronyc sources|grep '^#\* PPS.*ns\]' > /dev/null ; do
@@ -20,7 +21,6 @@ mount /dev/mmcblk0p6 /home/pi/disk
 
     export LC_ALL=C
     AUDIO_NAME=$(hostname|perl -np -e 's/-/_/g')
-    AUDIO_USER=pi
     HOSTNAME=$(hostname)
     RECORDER=$(arecord -l|perl -n -e 'print $1, "\n" if /^card (\d+): Device/')
 
@@ -36,7 +36,7 @@ mount /dev/mmcblk0p6 /home/pi/disk
 
 	sleep 1
 
-	su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/$HOSTNAME ; /home/$AUDIO_USER/sbts-aru/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 10 -b 44100 > /dev/null 2>&1 &"
+	su - "$AUDIO_USER" -c "cd /home/$AUDIO_USER/disk/$HOSTNAME ; /home/$AUDIO_USER/sbts-bin/sbts-aru -n $AUDIO_NAME -c $AUDIO_NAME -s system:capture_1 -p input -t 10 -b 44100 > /dev/null 2>&1 &"
     fi
 
     # Turn off the power and activity leds
