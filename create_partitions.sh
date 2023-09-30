@@ -52,7 +52,7 @@ perl -pi -e 's% init.*$% init=/sbin/overlayRoot.sh%' /mnt/cmdline.txt
 umount /mnt
 banner FINISHED
 rm /home/"$USER"/sbts-bin/create_partitions.sh
-exec /sbin/overlayRoot.sh
+exec /sbin/init
 END
 )"
 EOF
