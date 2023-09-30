@@ -358,7 +358,7 @@ tweak_chrony_conf() {
 
     local OFFSET
     if [ "$is_adafruit" == "y" ] ; then
-        OFFSET="0.340"
+        OFFSET="0.250"
     else
         OFFSET="0.100"
     fi
