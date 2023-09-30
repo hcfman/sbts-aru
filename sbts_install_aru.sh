@@ -461,7 +461,7 @@ update_bashrc
 
 update_etc_rc
 
-add_crontabs
+#add_crontabs
 
 initialize_sbts_bin
 
