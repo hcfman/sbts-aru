@@ -148,7 +148,7 @@ install_packages() {
     echo "Installing packages"
     echo ""
 
-    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd gpsd-clients chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner ;do
+    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner ;do
         if ! dpkg -l "$package" > /dev/null 2>&1 ; then
             echo "Installing package \"$package\""
             install_package "$package"
@@ -160,6 +160,8 @@ install_packages() {
     else
         apt install -y python-gps
     fi
+
+    install_package gpsd-clients
 }
 
 enable_rt() {
@@ -485,8 +487,8 @@ fix_etc_fstab
 
 make_readonly
 
-enable_partitioning
-
 install_overlayfs
+
+enable_partitioning
 
 reboot
