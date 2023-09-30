@@ -432,10 +432,6 @@ enable_partitioning() {
     perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/cmdline.txt
 }
 
-update_firmware() {
-    rpi-update
-}
-
 #
 # Main
 #
@@ -491,7 +487,5 @@ fix_etc_fstab
 make_readonly
 
 enable_partitioning
-
-update_firmware
 
 reboot
