@@ -38,8 +38,8 @@ cd mnt
 
 mkdir /mnt/home/"$USER"/config
 mkdir /mnt/home/"$USER"/disk
-chown 1000:1000 home/"$USER/config"
-chown 1000:1000 home/"$USER/disk"
+chown 1000:1000 /mnt/home/"$USER/config"
+chown 1000:1000 /mnt/home/"$USER/disk"
 
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$( cat <<END
@@ -50,7 +50,7 @@ umount /mnt
 mount /dev/mmcblk0p1 /mnt
 perl -pi -e 's% init.*$% init=/sbin/overlayRoot.sh%' /mnt/cmdline.txt
 umount /mnt
-banner banner FINISHED
+banner FINISHED
 rm /home/"$USER"/sbts-bin/create_partitions.sh
 exec /sbin/init
 END
