@@ -26,8 +26,10 @@ mkswap /dev/mmcblk0p3
 mkdir /tmp/mnt
 mount /dev/mmcblk0p6 /tmp/mnt
 mkdir /tmp/mnt/log
+mkdir /tmp/mnt/tmp
 mkdir /tmp/mnt/"$(cat /etc/hostname)"
 chown 1000:1000 /tmp/mnt/log
+chown 1000:1000 /tmp/mnt/tmp
 chown 1000:1000 /tmp/mnt/"$(cat /etc/hostname)"
 umount /tmp/mnt
 
