@@ -432,44 +432,44 @@ fi
 
 SUDO_USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
 
-#ask_about_gps
+ask_about_gps
 
-#update_pkg_registry
+update_pkg_registry
 
-#prep_pip_installation
+prep_pip_installation
 
-#install_packages
+install_packages
 
-#enable_rt
+enable_rt
 
-#install_python_modules
+install_python_modules
 
-#update_bashrc
+update_bashrc
 
-#update_etc_rc
+update_etc_rc
 
-#add_crontabs
+add_crontabs
 
-#initialize_sbts_bin
+initialize_sbts_bin
 
-#turn_off_unused_services
+turn_off_unused_services
 
-#fix_swap
+fix_swap
 
-#configure_gpsd
+configure_gpsd
 
-#tweak_startup_order
+tweak_startup_order
 
-#tweak_chrony_conf
+tweak_chrony_conf
 
-#tweak_config
+tweak_config
 
-#enable_ssh
+enable_ssh
 
-#fix_etc_fstab
+fix_etc_fstab
 
-#make_readonly
+make_readonly
 
 enable_partitioning
 
-#reboot
+reboot
