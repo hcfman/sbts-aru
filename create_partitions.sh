@@ -36,10 +36,10 @@ cd /
 mount /dev/mmcblk0p2 /mnt
 cd mnt
 
-mkdir /mnt/home/"$USER"/config
-mkdir /mnt/home/"$USER"/disk
-chown 1000:1000 /mnt/home/"$USER/config"
-chown 1000:1000 /mnt/home/"$USER/disk"
+mkdir home/"$USER"/config
+mkdir home/"$USER"/disk
+chown 1000:1000 home/"$USER/config"
+chown 1000:1000 home/"$USER/disk"
 
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$( cat <<END
