@@ -4,10 +4,10 @@ export USER="$(getent passwd 1000|cut -d: -f1)"
 cd /
 mount -t proc proc /proc
 mount -t tmpfs inittemp /mnt
-/home/"$USER"/bin/get_min_files.sh | sort -u |cpio -pudmv mnt
+/home/"$USER"/sbts-bin/get_min_files.sh | sort -u |cpio -pudmv mnt
 cd mnt
 mkdir mnt proc dev tmp
-cp /home/"$USER"/bin/partitions tmp
+cp /home/"$USER"/sbts-bin/partitions tmp
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$(cat <<EOF
 cd /

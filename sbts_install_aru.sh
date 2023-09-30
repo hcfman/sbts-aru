@@ -254,12 +254,14 @@ initialize_sbts_bin() {
 
     local i
 
-    for i in sbts-aru create_partitions.sh clean.sh get_location.sh addtime.sh diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py time_diffs.py ; do
+    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py time_diffs.py ; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
+
+    copy_to partitions "$SUDO_USER_HOME/sbts-bin"
 }
 
 turn_off_unused_services() {
