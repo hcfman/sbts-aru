@@ -1,5 +1,7 @@
 #!/usr/bin/bash
 
+# Copyright (c) 2023 Kim Hendrikse
+
 export USER="$(getent passwd 1000|cut -d: -f1)"
 cd /
 mount -t proc proc /proc

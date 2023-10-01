@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Copyright (C) Kim Hendrikse, 2023
+
 # Check if required arguments are provided
 if [[ $# -ne 4 ]]; then
     echo "Usage: $0 -f <from-time> -t <to-time>"

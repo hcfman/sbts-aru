@@ -1,3 +1,5 @@
+// Copyright (c) 2023 Kim Hendrikse
+
 #include <chrono>
 #include <jack/jack.h>
 

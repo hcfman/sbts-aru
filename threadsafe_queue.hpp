@@ -1,3 +1,5 @@
+// Copyright (c) 2023 Kim Hendrikse
+
 #include <deque>
 #include <mutex>
 #include <condition_variable>
