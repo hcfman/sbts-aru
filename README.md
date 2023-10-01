@@ -26,6 +26,7 @@ Configure the following local settings
 - Localisation Options/Timezone
 - Localisation Options/Keyboard
 - Localisation Options/WLAN Country
+- System Options/Wireless LAN (If using wifi, here you set the username and password)
 
 ```
 sudo raspi-config
