@@ -19,13 +19,14 @@ While initially conceived to augment security, this module serves a dual purpose
 1. **First**
 2. Configure local settings
 
-3. ```
-   sudo raspi-config
-   ```
-   Configure the following local settings
-   - Interface Options/SSH
-   - Localisation Options/Locale
-   - Localisation Options/Timezone
-   - Localisation Options/Keyboard
-   - Localisation Options/WLAN Country
+```
+sudo raspi-config
+```
+Configure the following local settings
+- Interface Options/SSH
+- Localisation Options/Locale
+- Localisation Options/Timezone
+- Localisation Options/Keyboard
+- Localisation Options/WLAN Country
+
 If you have questions or feedback, don't hesitate to  reach out.
