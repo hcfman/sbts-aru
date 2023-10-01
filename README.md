@@ -14,19 +14,28 @@ While initially conceived to augment security, this module serves a dual purpose
 ### Potential Use Cases:
 - **Bioacoustic Studies:** This technology can be instrumental for researchers aiming to localize various species based on their vocalizations or other sound signatures.
 
-### Setup Instructions
+## Installation ##
 
-1. **First**
-2. Configure local settings
+**First**
 
-```
-sudo raspi-config
-```
 Configure the following local settings
 - Interface Options/SSH
 - Localisation Options/Locale
 - Localisation Options/Timezone
 - Localisation Options/Keyboard
 - Localisation Options/WLAN Country
+
+```
+sudo raspi-config
+```
+**Then**
+
+Run the main install script:
+
+```
+git clone https://github.com/hcfman/sbts-aru.git
+cd sbts-aru
+sudo -H ./sbts_install_stalkedbythestate.sh
+```
 
 If you have questions or feedback, don't hesitate to  reach out.
