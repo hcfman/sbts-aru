@@ -103,7 +103,7 @@ The output is the date and time format that is used by the localize_event.py pro
 
 **localizing**
 
-Localizing is done by running localize_event.py with as input successivec lines of a format containing the GPS co-ordinates of the event and the date-time of the event as follows:
+Localizing makes use of the wonderful library [OpenSoundScape](http://opensoundscape.org/en/latest/). Localizing is done by running localize_event.py with as input successivec lines of a format containing the GPS co-ordinates of the event and the date-time of the event as follows:
 
 ```
 $ localize_event.py 
