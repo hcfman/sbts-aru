@@ -68,4 +68,24 @@ The **-p2048** flag sets the buffer size and the value (2048) is used later as t
 
 **sbts-aru** is the sound recorder program. If you kill this process with HUP it will close the current files it is writing and create new ones meaning you can then view the last file it closed. You cannot play a file that wasn't closed. The **-n** parameter to sbts-aru is the name. In principle you could record from different sound cards on the same machine. Both the **-n** and **-c** parameters typically have the same value and currently it's set to the same name as the hostname replacing **'-'** characters with **'_'** characters.
 
+These processes are started up by the installed /etc/rc.local script.
+
+**Directory structure**
+The structure resembles the following:
+
+```
+sbts-bin/
+sbts-aru
+config
+disk/log
+disk/audio-sbts1/2023/2023-10/2023-10-01/2023-10-01_22-16-35.343575--audio_sbts1--2023-10-01_22-26-35.361536.tracking
+disk/audio-sbts1/2023/2023-10/2023-10-01/2023-10-01_22-36-35.379332--audio_sbts1--2023-10-01_22-46-35.397175.tracking
+```
+
+**sbts-bin** is where the programs go.
+
+**sbts-aru** is the software you cloned
+
+**config** is currently not used. But is intended for potential configuration changes so that the partition can be mounted **RO** most of the time and re-mounted to **RW** only when it's required to make changes.
+
 If you have questions or feedback, don't hesitate to  reach out.
