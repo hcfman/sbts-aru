@@ -50,4 +50,22 @@ cd sbts-aru
 sudo -H ./sbts_install_aru.sh
 ```
 
+## Usage ##
+
+**Processes**
+
+When running, something like the following relevant processes will be visible:
+
+```
+$ ps -fupi
+UID        PID  PPID  C STIME TTY          TIME CMD
+pi         635     1  1 Oct04 ?        00:23:23 /usr/bin/jackd -R -dalsa -r44100 -p2048 -i1 -n2 -D -Chw:1,0 -Phw:1,0 -S
+pi         674     1  9 Oct04 ?        02:05:39 /home/pi/sbts-bin/sbts-aru -n audio_john -c audio_john -s system:capture_1 -p input -t 10 -b 44100
+```
+The *-p2048* flag sets the buffer size and the value (2048) is used later as the last parameter in the gps_event_time.py command.
+
+*jackd* is the real-time audio distribution daemon and is reading from the USB sound card.
+
+*sbts-aru* is the sound recorder program. If you kill this process with HUP it will close the current files it is writing and create new ones meaning you can then view the last file it closed. You cannot play a file that wasn't closed.
+
 If you have questions or feedback, don't hesitate to  reach out.
