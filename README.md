@@ -110,12 +110,16 @@ Localizing is done by running localize_event.py with as input successive lines o
 ```
 $ localize_event.py 
 Enter GPS coordinates and timestamps. Press enter twice to finish.
-
 51.01415,5.813725 2023-09-17_15-49-48.523601
 51.015365,5.81165 2023-09-17_15-49-48.822030
 51.016368332,5.814084879 2023-09-17_15-49-48.715324
 51.015221667,5.815915 2023-09-17_15-49-48.545999
 
-Estimated sound source location (OpenStreetMap): https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814450640699929#map=15/51.014906583842645/5.814450640699929
-Estimated sound source location (Google Maps): https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
+Location: 51.014906583842645,5.814450640699929
+
+Web links:
+
+OpenStreetMap: https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814450640699929#map=15/51.014906583842645/5.814450640699929
+
+Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
 ```
