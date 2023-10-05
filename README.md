@@ -97,7 +97,7 @@ $ gps_event_time.py 2023-10-01_22-36-35.379332--audio_sbts1--2023-10-01_22-46-35
 2023-10-01_22-41-19.065072
 ```
 
-In the example above we want to know the event time that happened 283.6789 seconds into the sound file that accompanies the tracking file supplied. Both should be in the same directory. **283.6789** in this case is the time from the start of the file, typically you get this by using a program like raven lite. 2048 is the sample rate that jackd is using as above.
+In the example above we want to know the event time that happened 283.6789 seconds into the sound file that accompanies the tracking file supplied. Both should be in the same directory. **283.6789** in this case is the time from the start of the file, typically you get this by using a program like [raven lite](https://ravensoundsoftware.com/software/raven-lite/). 2048 is the sample rate that jackd is using as above.
 
 The output is the date and time format that is used by the localize_event.py program.
 
