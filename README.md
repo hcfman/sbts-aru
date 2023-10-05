@@ -101,7 +101,7 @@ In the example above we want to know the event time that happened 283.6789 secon
 
 The output is the date and time format that is used by the localize_event.py program.
 
-**localizing**
+**Localizing**
 
 Localization utilizes the [OpenSoundScape](http://opensoundscape.org/en/latest/) library.
 
