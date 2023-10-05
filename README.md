@@ -1,4 +1,4 @@
-## StalkedByTheState: Autonomous Recording Unit 
+## StalkedByTheState: Low cost Autonomous Recording Unit 
 
 Or portable gunshot locator or stratum 1 time source.
 
