@@ -106,7 +106,7 @@ The output is the date and time format that is used by the localize_event.py pro
 Localizing is done by running localize_event.py with as input successivec lines of a format containing the GPS co-ordinates of the event and the date-time of the event as follows:
 
 ```
-$ ./localize_event.py 
+$ localize_event.py 
 51.01415,5.813725 2023-09-17_15-49-48.523601
 51.015365,5.81165 2023-09-17_15-49-48.822030
 51.016368332,5.814084879 2023-09-17_15-49-48.715324
