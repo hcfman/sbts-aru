@@ -117,5 +117,3 @@ Enter GPS coordinates and timestamps. Press enter twice to finish.
 Estimated sound source location (OpenStreetMap): https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814450640699929#map=15/51.014906583842645/5.814450640699929
 Estimated sound source location (Google Maps Satellite): https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
 ```
-
-If you have questions or feedback, don't hesitate to  reach out.
