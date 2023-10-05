@@ -88,4 +88,33 @@ disk/audio-sbts1/2023/2023-10/2023-10-01/2023-10-01_22-36-35.379332--audio_sbts1
 
 **config** is currently not used. But is intended for potential configuration changes so that the partition can be mounted **RO** most of the time and re-mounted to **RW** only when it's required to make changes.
 
+**Commands**
+
+To find the date and time from an event use gps_event_time.py as in the following example:
+
+```
+$ gps_event_time.py 2023-10-01_22-36-35.379332--audio_sbts1--2023-10-01_22-46-35.397175.tracking 283.6789 2048
+2023-10-01_22-41-19.065072
+```
+
+In the example above we want to know the event time that happened 283.6789 seconds into the sound file that accompanies the tracking file supplied. Both should be in the same directory. **283.6789** in this case is the time from the start of the file, typically you get this by using a program like raven lite. 2048 is the sample rate that jackd is using as above.
+
+The output is the date and time format that is used by the localize_event.py program.
+
+**localizing**
+
+Localizing is done by running localize_event.py with as input successivec lines of a format containing the GPS co-ordinates of the event and the date-time of the event as follows:
+
+```
+$ ./localize_event.py 
+51.01415,5.813725 2023-09-17_15-49-48.523601
+51.015365,5.81165 2023-09-17_15-49-48.822030
+51.016368332,5.814084879 2023-09-17_15-49-48.715324
+51.015221667,5.815915 2023-09-17_15-49-48.545999
+
+Enter GPS coordinates and timestamps. Press enter twice to finish.
+Estimated sound source location (OpenStreetMap): https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814450640699929#map=15/51.014906583842645/5.814450640699929
+Estimated sound source location (Google Maps Satellite): https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
+```
+
 If you have questions or feedback, don't hesitate to  reach out.
