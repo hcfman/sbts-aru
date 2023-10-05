@@ -17,6 +17,7 @@ It does this by mounting what is called an overlay file system constructed in me
 - **Bioacoustic Studies:** This technology can be instrumental for researchers aiming to localize various species based on their vocalizations or other sound signatures.
 - **Gunshot localizing:** Find the co-ordinates from where a gunshot comes from, this is a very useful thing to do in countering illegal poaching.
 - **Stratum 1 time server:** Synchronize all of your computers and securities cameras at home with this system. For this use case you only need a GPS, no mic or USB sound card. A neo 6m GPS can be acquired for around 7 euros.
+- **Sound recording for security:** Recording sounds is addition forensics for security systems. Additionally, you can then add a sound track to a recording of a camera that doesn't contain an integrated microphone.
 
 ## Installation ##
 
