@@ -138,13 +138,13 @@ Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&
 You can build a docker image that runs localize_event.py as follows:
 
 ```
-sudo docker build -t localize_event .
+docker build -t localize_event .
 ```
 
 Then you can run a localization as follows:
 
 ```
-$ sudo docker run -i localize_event
+$ docker run -i localize_event
 Enter GPS coordinates and timestamps. Press enter twice to finish.
 51.01415,5.813725 2023-09-17_15-49-48.523601
 51.015365,5.81165 2023-09-17_15-49-48.822030
