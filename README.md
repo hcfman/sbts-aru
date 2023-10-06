@@ -135,7 +135,7 @@ Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&
 ```
 **Docker**
 
-You can build a docker image that runs localize_event.py as follows:
+You can build a docker image that runs localize_event.py as in the following example:
 
 ```
 docker build -t localize_event .
