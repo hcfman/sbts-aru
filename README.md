@@ -159,3 +159,11 @@ OpenStreetMap: https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814
 
 Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
 ```
+
+Or use the pre-built docker image for 64-bit x86 platforms:
+
+```
+docker pull kimhdocker/sbts-aru:1.0.0
+docker run -i localize_event
+```
+
