@@ -62,7 +62,7 @@ sudo -H ./sbts_install_aru.sh
 
 **Processes**
 
-When running, something like the following relevant processes will be visible:
+When running, something like the following relevant processes will be visible once the GPS has established lock:
 
 ```
 $ ps -fupi
