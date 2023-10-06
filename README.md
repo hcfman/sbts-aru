@@ -124,7 +124,11 @@ Enter GPS coordinates and timestamps. Press enter twice to finish.
 51.015365,5.81165 2023-09-17_15-49-48.822030
 51.016368332,5.814084879 2023-09-17_15-49-48.715324
 51.015221667,5.815915 2023-09-17_15-49-48.545999
+```
 
+Which results in the following output:
+
+```
 Location: 51.014906583842645,5.814450640699929
 
 Web links:
