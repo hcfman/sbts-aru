@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# Copyright (c) 2023 Kim Hendrikse
+
 import argparse
 from datetime import datetime, timedelta
 from pydub.utils import mediainfo
