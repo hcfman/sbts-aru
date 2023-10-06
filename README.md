@@ -115,7 +115,7 @@ The output is the date and time format that is used by the localize_event.py pro
 
 Localization utilizes the [OpenSoundScape](http://opensoundscape.org/en/latest/) library.
 
-Localizing is done by running localize_event.py with as input successive lines of a format containing the GPS co-ordinates of the event and the date-time of the event as follows:
+Localizing is done by running localize_event.py with as input successive lines of a format containing the GPS co-ordinates of the event and the date-time of the event as in the following example:
 
 ```
 $ localize_event.py 
@@ -135,7 +135,7 @@ Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&
 ```
 **Docker**
 
-You can build a docker image that runs localize_event.py as in the following example:
+You can build a docker image that runs localize_event.py as follows:
 
 ```
 docker build -t localize_event .
