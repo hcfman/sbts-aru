@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+
+# Copyright (c) 2023 Kim Hendrikse
+
 import sys
 import argparse
 from datetime import datetime
