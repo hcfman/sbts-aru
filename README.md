@@ -3,7 +3,7 @@
 *Or portable gunshot locator or stratum 1 time server*
 
 <p align="center">
-  <img src="sbts-aru.jpg" align="middle" width = "400" />
+  <img src="sbts-aru.jpg" align="left" width = "400" />
 </p>
 
 ## Introduction: ##
