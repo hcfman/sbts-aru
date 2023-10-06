@@ -9,7 +9,7 @@
 ## Introduction: ##
 While initially conceived to augment security, this module serves a dual purpose. It introduces the concept of an **Autonomous Recording Unit (ARU)**, a term prominently used in bioacoustics. What sets this ARU apart is its ability to precisely synchronize the time of arrival for audio packets and it is typically installed on inexpensive Raspberry Pi hardware. Coupled with a tracking file, this enables pinpoint **Time Difference of Arrival (TDOA) sound localization**.
 
-<br>
+<div style="clear:both"></div>
 
 **Key Features:**
 
