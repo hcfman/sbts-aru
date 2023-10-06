@@ -1,5 +1,7 @@
 #!/usr/bin/python3.10
 
+# Copyright (c) 2023 Kim Hendrikse
+
 import datetime
 import math
 from opensoundscape.localization import localize
