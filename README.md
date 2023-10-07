@@ -190,6 +190,10 @@ Compliant with jackd. Typically all the **cirrus logic cm108** based ones work a
 
 A microphone capable of running with the above USB sound cards. These would be 2-wire ones that take their power from the USB Sound Cards. My personal preference is quite expensive but exceptional, it is the **primo em272 based microphone capsules** available from [micbooster](https://micbooster.com/microphone-capsules/199-primo-em272.html). These are also available as made up "clippy" units and also from [veldshop.nl](https://www.veldshop.nl/en/). I like them because they have low self noise, high gain and high S/N ratio. They are also spoken favourably about by nature recorders, which to me speaks of their quality. However, for sound location purposes you might be able to get away with cheap all-in-one USB microphones, which I purchased in the past for less than 10 euros.
 
+**Dead Cat wind noise reducer**
+
+Optional but very important for outdoor usage is some sort of wind noise reducing system. I found some fluffy "dead cat" like ones for 1 euro each on aliexpress.
+
 ## Physical Wiring ##
 
 For the following sections it may be useful to look at the GPIO pinout diagram [GPIO pinout](https://learn.sparkfun.com/tutorials/raspberry-gpio/gpio-pinout).
