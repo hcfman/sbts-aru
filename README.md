@@ -174,7 +174,7 @@ docker run -i localize_event
 ```
 ## Hardware requirements ##
 
-- Any raspberry pi, the raspberry pi zero series have the lowest power usage for portable usage
+- ** Any raspberry pi **, the raspberry pi zero series have the lowest power usage for portable usage
 - A GPS capable of providing data read/write and PPS signals. These include, but not excluding ublox neo 6m, 7m and 8m, Adafruit ultimate breakout boards. The ublox modules can be obtained from aliexpress for in the vicinity of 7 euros. My choice would be the neo 7m.
 - A 16-bit USB sound card compliant with jackd. Typically all the cirrus login cm108 based ones work as well as the General Plus based ones. My preference is the General Plus based ones as they tend to be able to provide high mic boost gain
 - A microphone capable of of running with the above USB sound cards. My personal preference is quite expensive, it is the primo em272 based microphone capsules available from [micbooster](https://micbooster.com/microphone-capsules/199-primo-em272.html). These are also available as made up "clippy" units and also from [veldshop.nl](https://www.veldshop.nl/en/). I like them because they have low self noise, high gain and high S/N ratio. They are also spoken favourably about by nature recorders, which to me speaks of their quality. However, for sound location purposes you might be able to get away with cheap all-in-one USB microphones, which I purchased in the past for less than 10 euros.
