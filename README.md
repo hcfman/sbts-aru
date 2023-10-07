@@ -220,3 +220,45 @@ The Neo 8m is slightly different, the TX and TX lines are reversed on the GPS, t
 
 Very very anecdotely, I felt that the Neo 8m seemed to be less sensitive than the Neo 6m and 7m's. In other words, on two occasions I had to add an additional GPS antenna in cases where this wasn't necessary on the Neo 6m and 7m. Don't know why I experienced that. I would have thought it was more sensitive. Having said this, I didn't test this very scientifically.
 
+## About the in-memory Overlay File system ##
+
+I've glossed over this in the above so as not to distract. But when the sbts-aru first boots it will be in a normal read-write mode of operation. But after the first re-boot, the root file system will be mounted with a read-only mount and an in-memory Overlay File System mounted on top.
+
+What this provides is a root file system that is effectively and appears R/W but all writes happen only in memory. The actual root file system with all of the software remains R/O and thus protected against corruption through unplanned power cycles or otherwise.
+
+However, what it also means is that you shouldn't try and install any software or otherwise write to anywhere except the ~pi/disk partition as you will be writing to and consuming memory.
+
+If you wish to make make permanent changes to the rootfs, such as installing software, changing configurations in /etc/rc or crontab etc you should first reboot to the R/W configuration as follows:
+
+**Re-booting to a R/W configuration**
+
+```
+sudo ~pi/sbts-bin/make_readwrite.sh
+reboot
+```
+
+and when you have finished making changes you should re-boot to the resilient/production R/O mode of operation as follows:
+
+**Re-booting to R/O configuration**
+
+```
+sudo ~pi/sbts-bin/make_readonly.sh
+reboot
+```
+You can identify whether you are in this R/O mode of operation as follows and observing the line starting with "/". It should mention **overlay**.
+
+**Identifying R/O mode of operation**
+
+```
+$ findmnt
+TARGET                                SOURCE         FSTYPE     OPTIONS
+/                                     overlayfs-root overlay    rw,relatime,lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=
+```
+**Identifying R/W mode of operation**
+
+```
+```
+$ findmnt
+TARGET                                SOURCE         FSTYPE     OPTIONS
+/                                     overlayfs-root overlay    rw,relatime,lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=
+```
