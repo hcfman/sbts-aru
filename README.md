@@ -184,7 +184,15 @@ These include, but are not limited to **ublox neo 6m, 7m and 8m**, as well as **
 
 **16-bit USB sound card**
 
-Compliant with jackd. Typically all the **cirrus logic cm108** based ones work as well as the **General Plus** based ones. These can be as cheap as less than one euro. My preference is the General Plus based ones as they tend to be able to provide higher mic boost gain
+Compliant with jackd. Typically all the **cirrus logic cm108** based ones work as well as the **General Plus** based ones. These can be as cheap as less than one euro. My preference is the General Plus based ones as they tend to be able to provide higher mic boost gain.
+
+Below is a picture that contains various compatible sound cards and one low cost USB microphone (That includes a cm108 based sound card).
+
+<p align="center">
+  <p>
+  <img src="soundcards.jpg"/>
+  </p>
+</p>
 
 **Microphone**
 
