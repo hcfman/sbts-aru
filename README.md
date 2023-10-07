@@ -196,15 +196,11 @@ For the following sections it may be useful to look at the GPIO pinout diagram [
 
 **Common requirements**
 
-**+V** should be wired to **3.3V**, I use pin 1.
-
-**-V** should be wired to **ground**, I use pin 6.
-
-**RX** on the **GPS** should be wired to **TX(D0)**, **pin 8**.
-
-**TX** on the **GPS** should be wired to **RX(D0)**, **pin 10**.
-
-**PPS** on the **GPS** should be wired to **GPIO 18**, **pin 12**.
+- **+V** should be wired to **3.3V**, I use pin 1.
+- **-V** should be wired to **ground**, I use pin 6.
+- **RX** on the **GPS** should be wired to **TX(D0)**, **pin 8**.
+- **TX** on the **GPS** should be wired to **RX(D0)**, **pin 10**.
+- **PPS** on the **GPS** should be wired to **GPIO 18**, **pin 12**.
 
 **Adafruit Ultimate breakout**
 
