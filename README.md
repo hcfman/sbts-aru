@@ -189,6 +189,26 @@ Compliant with jackd. Typically all the **cirrus logic cm108** based ones work a
 **Microphone**
 
 A microphone capable of running with the above USB sound cards. These would be 2-wire ones that take their power from the USB Sound Cards. My personal preference is quite expensive but exceptional, it is the **primo em272 based microphone capsules** available from [micbooster](https://micbooster.com/microphone-capsules/199-primo-em272.html). These are also available as made up "clippy" units and also from [veldshop.nl](https://www.veldshop.nl/en/). I like them because they have low self noise, high gain and high S/N ratio. They are also spoken favourably about by nature recorders, which to me speaks of their quality. However, for sound location purposes you might be able to get away with cheap all-in-one USB microphones, which I purchased in the past for less than 10 euros.
- 
+
 ## Physical Wiring ##
+
+For the following sections it may be useful to look at the GPIO pinout diagram [GPIO pinout](https://learn.sparkfun.com/tutorials/raspberry-gpio/gpio-pinout).
+
+**Common requirements**
+
+**+V** should be wired to **3.3V**, I use pin 1.
+
+**-V** should be wired to **ground**, I use pin 6.
+
+**RX** on the **GPS** should be wired to **TX(D0)**, **pin 8**.
+
+**TX** on the **GPS** should be wired to **RX(D0)**, **pin 10**.
+
+**PPS** on the **GPS** should be wired to **GPIO 18**, **pin 12**.
+
+**Adafruit Ultimate breakout**
+
+**Neo 6m and 7m**
+
+**Neo 8m**
 
