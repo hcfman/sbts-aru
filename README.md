@@ -261,7 +261,7 @@ TARGET                                SOURCE         FSTYPE     OPTIONS
 /                                     overlayfs-root overlay    rw,relatime,lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=
 ```
 
-The R/W mode of operation should mention **/dev/mmcblk0p2**
+The R/W mode of operation should mention **/dev/mmcblk0p2**. In this mode is okay to install software onto the Pi.
 
 **Identifying R/W mode of operation**
 
