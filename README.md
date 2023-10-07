@@ -1,6 +1,6 @@
 ## Low cost raspberry pi sound localizing Autonomous Recording Unit 
 
-*Or portable gunshot locator or stratum 1 time server*
+*Or **portable gunshot locator** or **stratum 1 time server***
 
 <p align="center">
   <p>
