@@ -1,0 +1,41 @@
+The recent European Cyber Resilience Act has significantly impacted the software development ecosystem.
+
+This act, is a brutal kick in the teeth and shows contempt to the millions of open source contributors and small business developers who have made our software eco system as rich as it is today.
+
+I for one built one of the first national search engines for the Netherland and for New Zealand. Although this was a net loss for me
+I have always worked with the expectation that maybe one day I can make some modest income from all the experience in IT that I have
+gained over the years.
+
+Requiring all software developers who earn any income from their creations to be compliant, with potential fines up to 15,000,000 euros or 2.5% of their revenue, this act poses a significant financial threat to countless individuals that made innovations like our smartphones or smart TVs in fact pretty much all of what we have today possible.
+
+Given that the cost of litigation or compliance can be prohibitive for small developers, this act seriously jeopardizes their financial future, effectively robbing from the poor to give to the rich.
+
+Furthermore, the act mandates developers to report any software vulnerabilities to the government within 24 hours, risking fines for non-compliance. Present legislation does not prevent the government from potentially exploiting these vulnerabilities against its own citizens. Recent amendments to Dutch law, for instance, authorize government entities to hack any individual, even those unrelated to criminal activities, without a warrant. Additionally, post-2020 revisions to Dutch law permit government officials to lie in court under oath without facing repercussions. Unlike in the U.S. such as the Nixon scandal showed, the crime of perverting the course of justice through lying under oath doesn't exist for members of Dutch government who may lie in court under oath without consequences, making it trivial to cover up such abuse.
+
+This means that the government could effectively force me into being complicit in facilitating criminal acts against innocent citizens. Regardless of whether the government deem this as non-criminal for them, this is morally repugnant to me.
+
+This act hinders my potential to earn even a modest income through support related to my open source software by elevating the litigation and compliance risks to untenable heights.
+
+Consequently, I can no longer in good conscience permit my software's to be used by European governments or government organizations.
+
+A license for this software is explicitly denied for use by any European government or government organization, either directly or indirectly by its inclusion in other software.
+
+However, exceptions are granted for the following purposes which I whole heartedly support:
+
+European governments or government organizations may use this software for projects that directly improve the welfare of fauna or flora, and educational endeavors.
+
+Permitted use-cases encompass, but aren't limited to:
+
+    Wildlife conservation initiatives
+    Bioacoustic research
+    Anti-poaching campaigns
+    Efforts against illegal logging
+    Wildlife observation and monitoring
+    Solutions for mitigating human-wildlife conflicts
+    Educational projects
+
+Non-permitted use-cases include, but are not confined to:
+
+    Law enforcement applications, barring the enforcement of anti-poaching and fauna/flora protection laws
+
+In instances where these additional licensing stipulations contradict terms in the "LICENSE" file, the conditions outlined in this document will prevail.
