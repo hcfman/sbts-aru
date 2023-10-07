@@ -245,6 +245,70 @@ Very very anecdotely, I felt that the Neo 8m seemed to be less sensitive than th
 
 For all of the Neo series GPS's the PPS wiring, such as the brown wire in the photo above with the Adafruit GPS is not dragged to the back as in the Adafruit example but rather the wire is in-line with the data lines.
 
+## Tuning the system time daemon chrony ##
+
+The install software installs the chrony daemon for time keeping. In the past the ntp daemon was most commonly used for this. The install software attempts to configure the systems so they should come up running successfully, synched to the GPS. It does this by first asking the question as to which GPS type you have, the Adafruit series need to have a larger value for the NMEA source offset configured in /etc/chrony/chrony.conf than the ublox series. I haven't used any other type.
+
+When the GPS has obtained a position and satellite lock then the chrony daemon can use it as a viable source. If it's the considered the best choice source then PPS will appear as a source with an asterisk beside it in the output of running the chronyc sources command as in the following:
+
+```
+$ chronyc sources
+MS Name/IP address         Stratum Poll Reach LastRx Last sample               
+===============================================================================
+#? NMEA                          0   2   377     4   +128ms[ +128ms] +/-  169ms
+#* PPS                           0   2   377     4   +118ns[ -120ns] +/- 2555ns
+```
+
+The above diagram shows that the PPS source is both the source of choice (#* at the start) and has an offset of 120ns from the actual time currently.
+
+It also shows a value of "4" in the LastRx field. It's important that this field has a number in it that goes up but then down again. If it just justs increasingly higher then the GPS daemon is not being used by the PPS time source correctly.
+
+Additional information can be had with the chronyc sourcestats command as follows:
+
+```
+$ chronyc sourcestats
+Name/IP Address            NP  NR  Span  Frequency  Freq Skew  Offset  Std Dev
+==============================================================================
+NMEA                       26  15   102   +149.294     66.756   +130ms  2599us
+PPS                         6   3    20     +0.011      0.193    +35ns   447ns
+```
+
+In the above output we see that the PPS source has an offset of 35ns from the real time and the NMEA source has an un-mitigated offset of 130ms. This later value has to be less than 200ms or the GPS will not be used for for the PPS source. Watch this value over time and you can lower it by increasing the offset value in /etc/chrony/chrony.conf. For example, in this case if the offset remains consistently around 130ms, I might choose to add around 120ms to the offset value in /etc/chrony/chrony.conf.
+
+In the example above the /etc/chrony/chrony.conf files the following values towards the end:
+
+```
+refclock SHM 0 delay 0.325 offset 0.330 poll 2 refid NMEA noselect
+refclock PPS /dev/pps0 lock NMEA poll 2 refid PPS prefer
+```
+
+I could probably safely add 90ms in any case to the offset value, increasing it from 0.330 to 0.420 to improve the convergence.
+
+It appears however, that this offset value changes over time, maybe with temperature. So long as the value is showing up less than 200ms (I think on later software versions 400ms) then the system will adjust the offset correctly and the GPS will be used together with PPS as a source. Make sure that you observe this value over an extended period of time before making improvement changes. Usually 0.100 is a safe value for the most GPS's. If the LastRx field in chronyc sources doesn't have a value or monotonically increases, then the offset value here can be a cause.
+
+Another useful command is the following:
+
+```
+$ chronyc tracking
+Reference ID    : 50505300 (PPS)
+Stratum         : 1
+Ref time (UTC)  : Sat Oct 07 11:43:18 2023
+System time     : 0.000000063 seconds fast of NTP time
+Last offset     : +0.000000063 seconds
+RMS offset      : 0.000000232 seconds
+Frequency       : 5.111 ppm fast
+Residual freq   : +0.000 ppm
+Skew            : 0.014 ppm
+Root delay      : 0.000000001 seconds
+Root dispersion : 0.000004053 seconds
+Update interval : 4.0 seconds
+Leap status     : Normal
+```
+
+The above is showing that the system time is **"0.000000063 seconds fast of NTP time"**, which means that the system time error is currently 63ns away from the real true time. Well under 1 microsecond. That's pretty accurate!!
+
+PPS stands for Pulse Per Second and is the line that is connected to GPIO 18. This line and interrupt is what synchronizes the slow data transmitted over the serial line with the actual point in time for which it is applied.
+
 ## About the in-memory Overlay File system ##
 
 I've glossed over this in the above so as not to distract. But when the sbts-aru first boots it will be in a normal read-write mode of operation. But after the first re-boot, the root file system will be mounted with a read-only mount and an in-memory Overlay File System mounted on top.
