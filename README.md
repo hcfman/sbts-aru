@@ -217,3 +217,6 @@ The Neo 6m and 7m have the simplest wiring as all the wires remain in a line. Th
 **Neo 8m**
 
 The Neo 8m is slightly different, the TX and TX lines are reversed on the GPS, that means you have to reverse them at the Pi end as well. So the wiring is just like for the Neo 6m and 7m except the middle 2 wires of the group of 4 are reversed.
+
+Very very anecdotely, I felt that the Neo 8m seemed to be less sensitive than the Neo 6m and 7m's. In other words, on two occasions I had to add an additional GPS antenna in cases where this wasn't necessary on the Neo 6m and 7m. Don't know why I experienced that. I would have thought it was more sensitive. Having said this, I didn't test this very scientifically.
+
