@@ -254,11 +254,13 @@ $ findmnt
 TARGET                                SOURCE         FSTYPE     OPTIONS
 /                                     overlayfs-root overlay    rw,relatime,lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=
 ```
+
+The R/W mode of operation should mention **/dev/mmcblk0p2**
+
 **Identifying R/W mode of operation**
 
 ```
-```
 $ findmnt
-TARGET                                SOURCE         FSTYPE     OPTIONS
-/                                     overlayfs-root overlay    rw,relatime,lowerdir=/mnt/lower,upperdir=/mnt/rw/upper,workdir=
+TARGET                           SOURCE         FSTYPE     OPTIONS
+/                                /dev/mmcblk0p2 ext4       rw,noatime
 ```
