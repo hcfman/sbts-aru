@@ -196,6 +196,10 @@ I've also tested it with one model (Not the most recent) of Petterson Ultrasonic
 
 Optional but very important for outdoor usage is some sort of wind noise reducing system. I found some fluffy "dead cat" like ones for 1 euro each on aliexpress.
 
+**Raspberry Pi Adapter Pack**
+
+For use with a battery power pack you may found it necessary to buy a Raspberry Pi Adapter Pack in order to get a connector for the USB Sound Card and/or the power pack (The Power Pack should typically contain one such cable).
+
 ## Physical Wiring ##
 
 For the following sections it may be useful to look at the GPIO pinout diagram [GPIO pinout](https://learn.sparkfun.com/tutorials/raspberry-gpio/gpio-pinout).
