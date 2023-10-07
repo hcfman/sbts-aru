@@ -226,6 +226,9 @@ With the Adafruit series, the **PPS** line at the Pi side should be bend so as t
   <p>
   <img src="adafruit_wiring.jpg"/>
   </p>
+  <p>
+  <img src="adafruit_wiring2.jpg"/>
+  </p>
 </p>
 
 **Neo 6m and 7m**
