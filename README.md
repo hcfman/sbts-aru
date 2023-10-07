@@ -214,11 +214,17 @@ For the following sections it may be useful to look at the GPIO pinout diagram [
 
 With all of the GPS's I tend to leave all the wires in-line at the GPS side and make changes at the Pi side.
 
+**Be very careful not to plug the PPS line into ground or you will blow the GPS up:** I've done this as GPIO 18 is right next to a ground line.
+
 **Adafruit Ultimate breakout**
 
 With the Adafruit series, the **PPS** line at the Pi side should be bend so as to be next to the **TX** line. Connect the power wire to pin 1. Then all the lines can then be plugged in a line after skipping the first 2 pins.
 
-**Be very careful not to plug the PPS line into ground or you will blow the GPS up:** I've done this as GPIO 18 is right next to a ground line.
+<p align="center">
+  <p>
+  <img src="adafruit_wiring.jpg"/>
+  </p>
+</p>
 
 **Neo 6m and 7m**
 
