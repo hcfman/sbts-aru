@@ -216,6 +216,8 @@ With all of the GPS's I tend to leave all the wires in-line at the GPS side and 
 
 **Be very careful not to plug the PPS line into ground or you will blow the GPS up:** I've done this as GPIO 18 is right next to a ground line.
 
+The Neo series GPS's from aliexpress are considerably cheaper than the Adafruit ones. The Adafruit ones have an easier to understand output with the gpsmon command. I did buy about 5x of the Adafruit GPS's but now I would buy the Neo 7m ones. Sometimes it's nice to support companies that support the hobbist market though.
+
 **Adafruit Ultimate breakout**
 
 With the Adafruit series, the **PPS** line at the Pi side should be bend so as to be next to the **TX** line. Connect the power wire to pin 1. Then all the lines can then be plugged in a line after skipping the first 2 pins.
@@ -230,11 +232,15 @@ With the Adafruit series, the **PPS** line at the Pi side should be bend so as t
 
 The Neo 6m and 7m have the simplest wiring as all the wires remain in a line. The power wire is connected to pin 1, then the next 4 wires connect to the Pin all in a line after skipping the first to pins. i.e. starting from pin 6.
 
+For all of the Neo series GPS's the PPS wiring, such as the brown wire in the photo above with the Adafruit GPS is not dragged to the back as in the Adafruit example but rather the wire is in-line with the data lines.
+
 **Neo 8m**
 
 The Neo 8m is slightly different, the TX and TX lines are reversed on the GPS, that means you have to reverse them at the Pi end as well. So the wiring is just like for the Neo 6m and 7m except the middle 2 wires of the group of 4 are reversed.
 
 Very very anecdotely, I felt that the Neo 8m seemed to be less sensitive than the Neo 6m and 7m's. In other words, on two occasions I had to add an additional GPS antenna in cases where this wasn't necessary on the Neo 6m and 7m. Don't know why I experienced that. I would have thought it was more sensitive. Having said this, I didn't test this very scientifically.
+
+For all of the Neo series GPS's the PPS wiring, such as the brown wire in the photo above with the Adafruit GPS is not dragged to the back as in the Adafruit example but rather the wire is in-line with the data lines.
 
 ## About the in-memory Overlay File system ##
 
