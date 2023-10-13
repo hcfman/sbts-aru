@@ -29,6 +29,10 @@ It does this by mounting what is called an overlay file system constructed in me
 
 ## Installation ##
 
+**Choice of OS**
+
+Currently this guide is based on the Raspberry Pi bullseye images dated 2023-05-03. As soon as I get a chance I'll update this for bookworm.
+
 **First**
 
 Configure the following local settings
