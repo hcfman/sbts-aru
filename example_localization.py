@@ -1,4 +1,4 @@
-#!/usr/bin/python3.10
+#!/usr/bin/python3
 
 # Example localization code, uses the cool opensoundscape library
 # http://opensoundscape.org/en/latest/ (pip3 install opensoundscape)
