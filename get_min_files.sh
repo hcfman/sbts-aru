@@ -68,6 +68,7 @@ find usr/sbin -name mkfs\*
 echo usr/sbin/e2label
 echo usr/sbin/tune2fs
 echo usr/sbin/mkswap
+echo usr/sbin/e2fsck
 
 # etc and dirs
 echo etc/ld.so.cache
