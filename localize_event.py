@@ -2,6 +2,8 @@
 
 # Copyright (c) 2023 Kim Hendrikse
 
+print("Enter GPS coordinates and timestamps. Press enter twice to finish.")
+
 import datetime
 import math
 from opensoundscape.localization import localize
@@ -29,20 +31,21 @@ def cartesian_2d_to_gps(x, y, ref_lat, ref_lon):
 receiver_gps = []
 timestamps = []
 
-print("Enter GPS coordinates and timestamps. Press enter twice to finish.")
-
 while True:
-    line = input().strip()
-    if not line:
-        break
     try:
+        line = input().strip()
+
+        if not line:
+            break
+
         lat_lon, timestamp = line.split(maxsplit=1)
         lat, lon = lat_lon.split(',')
         receiver_gps.append((float(lat), float(lon)))
         timestamps.append(timestamp)
-    except ValueError as e:  # Catch only value errors (i.e., formatting issues)
+    except EOFError:
+        break
+    except ValueError as e:
         print(f"Error reading input: {e}")
-
 
 # Convert GPS to Cartesian 2D
 ref_point = receiver_gps[0]
