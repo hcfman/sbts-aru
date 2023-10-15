@@ -149,7 +149,7 @@ install_packages() {
     echo "Installing packages"
     echo ""
 
-    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner ;do
+    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner python3-venv ;do
         if ! dpkg -l "$package" > /dev/null 2>&1 ; then
             echo "Installing package \"$package\""
             install_package "$package"
@@ -192,6 +192,15 @@ install_python_modules() {
     for m in smbus2 soundfile pydub; do
         install_module "$m"
     done
+
+    cd $HERE || abort "Can't change to script directory"
+    mkdir virtualenvs
+    python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
+
+    (
+    . ./virtualenvs/sbts/bin/activate
+    python3 -m pip install opensoundscape
+    )
 }
 
 # Need this export for some versions of numpy to work properly (Not core dump) on arm processors
