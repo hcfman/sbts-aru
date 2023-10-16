@@ -12,13 +12,22 @@ def get_used_space():
             return used_space_kb
     raise Exception("Couldn't determine the used space on the root partition.")
 
-if len(sys.argv) != 4:
-    print("Usage: script_name <start_block_partition2> <extra_gb_partition2> <gb_partition3>")
+def get_start_sector_partition2():
+    result = subprocess.run(['fdisk', '-l', '/dev/mmcblk0'], capture_output=True, text=True)
+    for line in result.stdout.splitlines():
+        if '/dev/mmcblk0p2' in line:
+            return int(line.split()[1])
+    raise Exception("Couldn't determine the start sector for partition 2.")
+
+if len(sys.argv) != 3:
+    print("Usage: script_name <extra_gb_partition2> <gb_partition3>")
     sys.exit(1)
 
-start_block_partition2 = int(sys.argv[1])
-extra_gb_partition2 = int(sys.argv[2])
-gb_partition3 = int(sys.argv[3])
+extra_gb_partition2 = int(sys.argv[1])
+gb_partition3 = int(sys.argv[2])
+
+# Get the starting sector for partition 2
+start_block_partition2 = get_start_sector_partition2()
 
 # Convert GB to KB
 extra_kb_partition2 = extra_gb_partition2 * 1024 * 1024
@@ -39,6 +48,16 @@ sectors_required_partition3 = kb_partition3 * 2
 end_block_partition2 = start_block_partition2 + sectors_required_partition2 - 1
 start_block_partition3 = end_block_partition2 + 1
 end_block_partition3 = start_block_partition3 + sectors_required_partition3 - 1
+
+# Print debug information
+print(f"DEBUG: Used space in KB: {used_space_kb}")
+print(f"DEBUG: Total required KB (including extra) for partition 2: {total_required_kb_partition2}")
+print(f"DEBUG: Rounded GB for partition 2: {rounded_gb_partition2}")
+print(f"DEBUG: Total sectors required for partition 2: {sectors_required_partition2}")
+print(f"DEBUG: Total sectors required for partition 3: {sectors_required_partition3}")
+print(f"DEBUG: End block for partition 2: {end_block_partition2}")
+print(f"DEBUG: Start block for partition 3: {start_block_partition3}")
+print(f"DEBUG: End block for partition 3: {end_block_partition3}")
 
 # Print fdisk commands
 print(f"""
