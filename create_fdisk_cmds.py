@@ -20,7 +20,7 @@ def get_start_sector_partition2():
     raise Exception("Couldn't determine the start sector for partition 2.")
 
 if len(sys.argv) != 3:
-    print("Usage: script_name <extra_gb_partition2> <gb_partition3>")
+    print("Usage: script_name <Extra GBs for rootfs (advise 2 or more)> <GBs for swap (advise 4)>")
     sys.exit(1)
 
 extra_gb_partition2 = int(sys.argv[1])
