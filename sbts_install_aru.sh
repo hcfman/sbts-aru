@@ -196,7 +196,7 @@ install_python_modules() {
     sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
-    cd "$SUDO_USER/.." || exit 1
+    cd "$HERE/.." || exit 1
     . ./virtualenvs/sbts/bin/activate
     python3 -m pip install --upgrade pip
     python3 -m pip install opensoundscape
