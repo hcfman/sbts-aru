@@ -108,6 +108,7 @@ set_hostname() {
     echo "$my_hostname" > /etc/hostname
     perl -pi -e "s%raspberrypi%$my_hostname%" /etc/hosts
 
+    hostname "$my_hostname"
     echo ""
 }
 
