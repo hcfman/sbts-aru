@@ -147,7 +147,7 @@ install_packages() {
     echo "Installing packages"
     echo ""
 
-    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner python3-venv ;do
+    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd chrony jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner ; do
         if ! dpkg -l "$package" > /dev/null 2>&1 ; then
             echo "Installing package \"$package\""
             install_package "$package"
@@ -190,6 +190,10 @@ install_python_modules() {
     for m in smbus2 soundfile pydub; do
         install_module "$m"
     done
+
+    echo "Installing python3-venv"
+
+    apt install -y python3-venv
 
     cd "$HERE/.." || abort "Can't change to HOME directory"
     sudo -H -u "$SUDO_USER" mkdir virtualenvs || abort "Can't create virtualenvs directory in HOME dir"
