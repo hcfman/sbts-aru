@@ -17,6 +17,7 @@ mount --move /mnt/proc /proc
 mount --move /mnt/dev /dev
 umount /mnt
 
+e2fsck -fy /dev/mmcblk0p2
 resize2fs -f -M /dev/mmcblk0p2
 fdisk /dev/mmcblk0 < /tmp/partitions
 resize2fs -f /dev/mmcblk0p2
