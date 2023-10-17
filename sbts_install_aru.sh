@@ -195,12 +195,12 @@ install_python_modules() {
 
     apt install -y python3-venv
 
-    cd "$HERE/.." || abort "Can't change to HOME directory"
+    cd "$SUDO_USER_HOME" || abort "Can't change to HOME directory"
     sudo -H -u "$SUDO_USER" mkdir virtualenvs || abort "Can't create virtualenvs directory in HOME dir"
     sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
-    cd "$HERE/.." || exit 1
+    cd "$SUDO_USER_HOME" || exit 1
     . ./virtualenvs/sbts/bin/activate
     echo "Upgrading pip"
     python3 -m pip install --upgrade pip
