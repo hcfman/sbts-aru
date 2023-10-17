@@ -139,9 +139,6 @@ prep_pip_installation() {
       echo "Installing \"python3-pip\""
       install_package "python3-pip"
   fi
-
-  echo "Upgrade pip"
-  python3 -m pip  install --upgrade pip
 }
 
 install_packages() {
@@ -195,11 +192,10 @@ install_python_modules() {
 
     cd $HERE || abort "Can't change to script directory"
     mkdir virtualenvs
-    sudo -H -u "$SUDO_USER" cp "$1" "$2" || abort "Can't copy $1 to $2"
     sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
-    cd
+    cd ~
     . ./virtualenvs/sbts/bin/activate
     python3 -m pip install opensoundscape
 EOF
@@ -493,6 +489,8 @@ fix_etc_fstab
 make_readonly
 
 install_overlayfs
+
+setup_partitions
 
 enable_partitioning
 
