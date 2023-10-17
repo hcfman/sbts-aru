@@ -195,12 +195,15 @@ install_python_modules() {
 
     cd $HERE || abort "Can't change to script directory"
     mkdir virtualenvs
-    python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
+    sudo -H -u "$SUDO_USER" cp "$1" "$2" || abort "Can't copy $1 to $2"
+    sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
-    (
+    sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
+    cd
     . ./virtualenvs/sbts/bin/activate
     python3 -m pip install opensoundscape
-    )
+EOF
+    )"
 }
 
 # Need this export for some versions of numpy to work properly (Not core dump) on arm processors
@@ -430,6 +433,11 @@ enable_partitioning() {
 
     "$SUDO_USER_HOME/sbts-bin/make_readwrite.sh"
     perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/cmdline.txt
+}
+
+setup_partitioning() {
+    cd "$HERE" || abort "Can't change back to $HERE"
+    create_fdisk_cmds.py > partitions
 }
 
 #
