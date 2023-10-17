@@ -279,8 +279,6 @@ initialize_sbts_bin() {
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
-
-    copy_to partitions "$SUDO_USER_HOME/sbts-bin"
 }
 
 turn_off_unused_services() {
