@@ -192,7 +192,7 @@ install_python_modules() {
     done
 
     cd "$HERE/.." || abort "Can't change to HOME directory"
-    mkdir virtualenvs
+    sudo -H -u "$SUDO_USER" mkdir virtualenvs || abort "Can't create virtualenvs directory in HOME dir"
     sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
