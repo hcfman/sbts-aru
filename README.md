@@ -59,6 +59,7 @@ Then you will be asked to provide the hostname. The hostname becomes part of the
 The installation completes with just the one command. After many installation steps, the pi will reboot and complete some more installation steps. When the system is fully installed it will display a FINISHED banner in large letters. Once you see the login prompt, proceed to login.
 
 ```
+sudo apt install -y git
 git clone https://github.com/hcfman/sbts-aru.git
 cd sbts-aru
 sudo -H ./sbts_install_aru.sh
