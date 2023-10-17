@@ -197,6 +197,7 @@ install_python_modules() {
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
     cd ~
     . ./virtualenvs/sbts/bin/activate
+    python3 -m pip install --upgrade pip
     python3 -m pip install opensoundscape
 EOF
     )"
