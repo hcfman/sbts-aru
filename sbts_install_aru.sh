@@ -198,7 +198,9 @@ install_python_modules() {
     sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
     cd "$HERE/.." || exit 1
     . ./virtualenvs/sbts/bin/activate
+    echo "Upgrading pip"
     python3 -m pip install --upgrade pip
+    echo "Installing opensoundscape"
     python3 -m pip install opensoundscape
 EOF
     )" || abort "Can't install virtual envs"
