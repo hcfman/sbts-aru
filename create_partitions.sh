@@ -8,7 +8,7 @@ mount -t proc proc /proc
 mount -t tmpfs inittemp /mnt
 /home/"$USER"/sbts-bin/get_min_files.sh | sort -u |cpio -pudmv mnt
 cd mnt
-mkdir mnt proc dev tmp
+mkdir mnt proc sys dev run tmp
 cp /home/"$USER"/sbts-bin/partitions tmp
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$(cat <<EOF
