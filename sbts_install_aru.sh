@@ -502,4 +502,4 @@ setup_partitioning
 
 enable_partitioning
 
-#reboot
+reboot
