@@ -49,19 +49,7 @@ end_block_partition2 = start_block_partition2 + sectors_required_partition2 - 1
 start_block_partition3 = end_block_partition2 + 1
 end_block_partition3 = start_block_partition3 + sectors_required_partition3 - 1
 
-# Print debug information
-print(f"DEBUG: Used space in KB: {used_space_kb}")
-print(f"DEBUG: Total required KB (including extra) for partition 2: {total_required_kb_partition2}")
-print(f"DEBUG: Rounded GB for partition 2: {rounded_gb_partition2}")
-print(f"DEBUG: Total sectors required for partition 2: {sectors_required_partition2}")
-print(f"DEBUG: Total sectors required for partition 3: {sectors_required_partition3}")
-print(f"DEBUG: End block for partition 2: {end_block_partition2}")
-print(f"DEBUG: Start block for partition 3: {start_block_partition3}")
-print(f"DEBUG: End block for partition 3: {end_block_partition3}")
-
-# Print fdisk commands
-print(f"""
-d
+print(f"""d
 2
 n
 p
