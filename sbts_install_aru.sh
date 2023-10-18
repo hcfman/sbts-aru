@@ -438,7 +438,13 @@ enable_partitioning() {
     echo ""
 
     "$SUDO_USER_HOME/sbts-bin/make_readwrite.sh"
-    perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/cmdline.txt
+    if ! grep bullseye /etc/os-release > /dev/null ; then
+        readlink /sbin/init > "$SUDO_USER_HOME/sbts-bin/init_location"
+        rm -f /sbin/init
+        ln -s "$SUDO_USER_HOME/sbts-bin/create_partitions.sh" /sbin/init
+    else
+        perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/cmdline.txt
+    fi
 }
 
 setup_partitioning() {
