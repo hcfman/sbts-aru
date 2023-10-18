@@ -7,7 +7,7 @@ import math
 def get_used_space():
     result = subprocess.run(['df', '-k', '/'], capture_output=True, text=True)
     for line in result.stdout.splitlines():
-        if '/dev/mmcblk0p2' in line or 'rootfs' in line:
+        if '/dev/mmcblk0p2' in line or 'root' in line:
             used_space_kb = int(line.split()[2])
             return used_space_kb
     raise Exception("Couldn't determine the used space on the root partition.")
