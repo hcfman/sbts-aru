@@ -9,7 +9,7 @@ mount -t tmpfs inittemp /mnt
 /home/"$USER"/sbts-bin/get_min_files.sh | sort -u |cpio -pudmv mnt
 cd mnt
 mkdir mnt proc sys dev run tmp
-cp /home/"$USER"/sbts-bin/partitions tmp
+cp /home/"$USER"/sbts-bin/partitions /mnt/tmp
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$(cat <<EOF
 cd /
