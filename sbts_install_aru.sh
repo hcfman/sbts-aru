@@ -200,12 +200,13 @@ install_python_modules() {
     . ./virtualenvs/sbts/bin/activate
     echo "Upgrading pip"
 
+    python3 -m pip install --upgrade pip
+    echo Installing python modules
+
     for m in smbus2 soundfile pydub; do
         install_module "$m"
     done
 
-    python3 -m pip install --upgrade pip
-    echo Installing python modules
     echo "Installing opensoundscape"
     python3 -m pip install opensoundscape
 EOF
