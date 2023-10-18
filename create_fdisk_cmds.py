@@ -56,7 +56,7 @@ p
 2
 {start_block_partition2}
 {end_block_partition2}
-No
+N
 n
 p
 3
@@ -65,6 +65,7 @@ p
 n
 e
 {end_block_partition3 + 1}
+
 n
 
 +512M
