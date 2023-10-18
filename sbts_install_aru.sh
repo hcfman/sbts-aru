@@ -441,7 +441,7 @@ setup_partitioning() {
     cd "$HERE" || abort "Can't change back to $HERE"
     # 2GB space extra over and above what is installed and 4GB for swap
     ./create_fdisk_cmds.py 2 4 > partitions
-    copy_to partitions "$SUDO_USER_HOME/sbts-bin"
+    copy_to "$HERE/partitions" "$SUDO_USER_HOME/sbts-bin"
 }
 
 #
