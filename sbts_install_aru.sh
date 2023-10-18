@@ -187,10 +187,6 @@ install_python_modules() {
     echo "Installing python modules"
     echo ""
 
-    for m in smbus2 soundfile pydub; do
-        install_module "$m"
-    done
-
     echo "Installing python3-venv"
 
     apt install -y python3-venv
@@ -199,11 +195,17 @@ install_python_modules() {
     sudo -H -u "$SUDO_USER" mkdir virtualenvs || abort "Can't create virtualenvs directory in HOME dir"
     sudo -H -u "$SUDO_USER" python3 -m venv virtualenvs/sbts || abort "Can't create virtual env virtualenvs/sbts"
 
-    sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<EOF
+    sudo -H -u "$SUDO_USER" /bin/bash -c "$(cat <<'EOF'
     cd "$SUDO_USER_HOME" || exit 1
     . ./virtualenvs/sbts/bin/activate
     echo "Upgrading pip"
+
+    for m in smbus2 soundfile pydub; do
+        install_module "$m"
+    done
+
     python3 -m pip install --upgrade pip
+    echo Installing python modules
     echo "Installing opensoundscape"
     python3 -m pip install opensoundscape
 EOF
