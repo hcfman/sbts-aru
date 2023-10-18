@@ -4,8 +4,14 @@
 
 export USER="$(getent passwd 1000|cut -d: -f1)"
 cd /
-mount -t proc proc /proc
+
+# Conditional, not mounted for bullseye, already mounted for bookworm
+if ! findmnt /proc ; then
+    mount -t proc proc /proc
+fi
+
 mount -t tmpfs inittemp /mnt
+
 /home/"$USER"/sbts-bin/get_min_files.sh | sort -u |cpio -pudmv mnt
 cd mnt
 mkdir mnt proc sys dev run tmp
@@ -13,8 +19,20 @@ cp /home/"$USER"/sbts-bin/partitions /mnt/tmp
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$(cat <<EOF
 cd /
+
 mount --move /mnt/proc /proc
 mount --move /mnt/dev /dev
+
+# Extra for bookworm
+if findmnt /mnt/sys ; then
+    mount --move /mnt/sys /sys
+fi
+
+if findmnt /mnt/run ; then
+    mount --move /mnt/run /run
+fi
+
+# Unmount so it can be shrunk
 umount /mnt
 
 e2fsck -fy /dev/mmcblk0p2
@@ -48,8 +66,18 @@ mkdir home/"$USER"/disk
 pivot_root . mnt
 exec chroot . /usr/bin/bash -c "$( cat <<END
 cd /
+
 mount --move /mnt/proc /proc
 mount --move /mnt/dev /dev
+
+if findmnt /mnt/sys ; then
+    mount --move /mnt/sys /sys
+fi
+
+if findmnt /mnt/run ; then
+    mount --move /mnt/run /run
+fi
+
 umount /mnt
 mount /dev/mmcblk0p1 /mnt
 perl -pi -e 's% init.*$% init=/sbin/overlayRoot.sh%' /mnt/cmdline.txt
