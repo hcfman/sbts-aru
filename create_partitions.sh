@@ -89,7 +89,7 @@ rm /home/"$USER"/sbts-bin/create_partitions.sh
 if ! grep bullseye /etc/os-release > /dev/null ; then
     echo "Put back /sbin/init to \$(cat /home/"$USER"/sbts-bin/init_location)"
     rm -f /sbin/init
-    ln -s "\$(cat /home/"$USER"/sbts-bin/init_location)" /sbin/init
+    ln -s "$(cat /home/"$USER"/sbts-bin/init_location)" /sbin/init
 fi
 
 banner FINISHED
