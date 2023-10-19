@@ -80,16 +80,16 @@ fi
 
 umount /mnt
 mount /dev/mmcblk0p1 /mnt
+perl -pi -e 's% init.*\$% init=/sbin/overlayRoot.sh%' /mnt/cmdline.txt
 umount /mnt
-chown 1000:1000 /home/"$USER/config"
-chown 1000:1000 /home/"$USER/disk"
-perl -pi -e 's% init.*$% init=/sbin/overlayRoot.sh%' /boot/cmdline.txt
-rm /home/"$USER"/sbts-bin/create_partitions.sh
+chown 1000:1000 /home/\"$USER/config\"
+chown 1000:1000 /home/\"$USER/disk\"
+rm /home/\"$USER\"/sbts-bin/create_partitions.sh
 
 if ! grep bullseye /etc/os-release > /dev/null ; then
-    echo "Put back /sbin/init to \$(cat /home/"$USER"/sbts-bin/init_location)"
+    echo \"Put back /sbin/init to \$(cat /home/\"$USER\"/sbts-bin/init_location)\"
     rm -f /sbin/init
-    ln -s "$(cat /home/"$USER"/sbts-bin/init_location)" /sbin/init
+    ln -s \"\$(cat /home/\"$USER\"/sbts-bin/init_location)\" /sbin/init
 fi
 
 banner FINISHED
