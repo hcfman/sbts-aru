@@ -205,7 +205,7 @@ install_python_modules() {
     echo Installing python modules
 
     for m in smbus2 soundfile pydub; do
-        install_module "$m"
+        python3 -m pip install "$m"
     done
 
     echo "Installing opensoundscape"
