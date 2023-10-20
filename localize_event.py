@@ -1,12 +1,25 @@
-#!/usr/bin/python3
-
 # Copyright (c) 2023 Kim Hendrikse
-
-print("Enter GPS coordinates and timestamps. Press enter twice to finish.")
 
 import datetime
 import math
+import sys
 from opensoundscape.localization import localize
+
+if len(sys.argv) > 1:
+    if sys.argv[1] == "--help":
+        print("Usage: python3 localize_event.py [temperature_in_celsius]")
+        print("Temperature is used to compute the speed of sound. If not provided, defaults to 343 m/s.")
+        sys.exit()
+    try:
+        temp_in_celsius = float(sys.argv[1])
+        speed_of_sound = 333.1 + 0.6 * temp_in_celsius
+    except ValueError:
+        print("Invalid temperature value. Please provide a valid number or use --help for usage information.")
+        sys.exit()
+else:
+    speed_of_sound = 343
+
+print("Enter GPS coordinates and timestamps. Press enter twice to finish.")
 
 def gps_to_cartesian_2d(lat, lon, ref_lat=None, ref_lon=None):
     R = 6371000
@@ -58,7 +71,6 @@ datetimes = [datetime.datetime.strptime(ts, "%Y-%m-%d_%H-%M-%S.%f") for ts in ti
 earliest_time = min(datetimes)
 arrival_times = [(dt - earliest_time).total_seconds() for dt in datetimes]
 
-speed_of_sound = 343
 estimated_location_cartesian = localize(receiver_locations, arrival_times, 'soundfinder', speed_of_sound)
 
 # Convert the estimated location back to GPS

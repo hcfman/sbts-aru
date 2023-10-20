@@ -277,12 +277,14 @@ initialize_sbts_bin() {
 
     local i
 
-    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py time_diffs.py ; do
+    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py time_diffs.py localize_event.py ; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
+    echo "cp localize_event.py $SUDO_USER_HOME/sbts-bin"
+    copy_to localize_event.py "$SUDO_USER_HOME/sbts-bin"
 }
 
 turn_off_unused_services() {
@@ -325,7 +327,7 @@ configure_gpsd() {
     echo ""
 
     cat > /etc/default/gpsd <<EOF
-DEVICES="/dev/ttyS0 /dev/pps0"
+DEVICES="/dev/ttyAMA0 /dev/pps0"
 GPSD_OPTIONS="-n"
 EOF
 
@@ -343,6 +345,13 @@ install_overlayfs() {
     perl -pi -e 's%console=serial\d,115200 %%' /boot/cmdline.txt
     cp /boot/cmdline.txt /boot/rw_cmdline.txt
     cp /boot/cmdline.txt /boot/ro_cmdline.txt
+
+    if [ -f /boot/firmware/cmdline.txt ] ; then
+        perl -pi -e 's%console=serial\d,115200 %%' /boot/firmware/cmdline.txt
+        cp /boot/firmware/cmdline.txt /boot/firmware/rw_cmdline.txt
+        cp /boot/firmware/cmdline.txt /boot/firmware/ro_cmdline.txt
+    fi
+
 
     perl -pi -e 's%$% init=/sbin/overlayRoot.sh%' /boot/ro_cmdline.txt
 }
@@ -366,7 +375,7 @@ tweak_chrony_conf() {
     perl -i -e 'undef $/;my $l=<>;$l =~ s%\n(makestep.*?)\n%\012#$1\012makestep 0.001 100\012%s;print $l' /etc/chrony/chrony.conf
 
     local OFFSET
-    if [ "$is_adafruit" == "y" ] ; then
+    if [ "$is_adafruit" == "y" && "$BULLSEYE" ] ; then
         OFFSET="0.250"
     else
         OFFSET="0.100"
@@ -397,7 +406,7 @@ tweak_config() {
 dtoverlay=pps-gpio,gpiopin=18
 enable_uart=1
 
-#dtoverlay=disable-bt
+dtoverlay=disable-bt
 #dtoverlay=disable-wifi
 EOF
 
@@ -408,8 +417,12 @@ EOF
 dtoverlay=pps-gpio,gpiopin=18
 enable_uart=1
 
-#dtoverlay=disable-bt
+dtoverlay=disable-bt
 #dtoverlay=disable-wifi
+EOF
+
+    cat > /etc/modprobe.d/blacklist-pps.conf <<EOF
+blacklist pps_ldisc
 EOF
     fi
 }
@@ -452,7 +465,7 @@ enable_partitioning() {
     echo ""
 
     "$SUDO_USER_HOME/sbts-bin/make_readwrite.sh"
-    if ! grep bullseye /etc/os-release > /dev/null ; then
+    if [ ! "$BULLSEYE" ; then
         readlink /sbin/init > "$SUDO_USER_HOME/sbts-bin/init_location"
         rm -f /sbin/init
         ln -s "$SUDO_USER_HOME/sbts-bin/create_partitions.sh" /sbin/init
@@ -482,6 +495,11 @@ if [ ! "$SUDO_USER" -o "$SUDO_USER" == "root" ] ; then
 fi
 
 SUDO_USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+if ! grep bullseye /etc/os-release > /dev/null ; then
+    export BULLSEYE=
+else
+    export BULLSEYE=1
+fi
 
 ask_about_gps
 
