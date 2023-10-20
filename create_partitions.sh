@@ -92,8 +92,6 @@ if ! grep bullseye /etc/os-release > /dev/null ; then
     ln -s \"\$(cat /home/$USER/sbts-bin/init_location)\" /sbin/init
 fi
 
-# Test if loading this manually works, if so, then a permanent solution will need to be found
-dtoverlay /boot/overlays/pps-gpio.dtbo gpiopin=18
 banner FINISHED
 exec /sbin/init
 END

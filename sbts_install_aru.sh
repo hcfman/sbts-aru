@@ -297,6 +297,8 @@ turn_off_unused_services() {
         echo systemctl stop "$i"
         systemctl stop "$i"
     done
+
+    perl -pi -e 's%AutoEnable=true%AutoEnable=false%' /etc/bluetooth/main.cf
 }
 
 fix_swap() {
@@ -323,7 +325,7 @@ configure_gpsd() {
     echo ""
 
     cat > /etc/default/gpsd <<EOF
-DEVICES="/dev/ttyAMA0 /dev/pps0"
+DEVICES="/dev/ttyS0 /dev/pps0"
 GPSD_OPTIONS="-n"
 EOF
 
@@ -338,7 +340,7 @@ install_overlayfs() {
     cp "$HERE/resources/overlayRoot.sh" /sbin
     make_executable "/sbin/overlayRoot.sh"
 
-    perl -pi -e 's%console=serial0%console=serial1%' /boot/cmdline.txt
+    perl -pi -e 's%console=serial\d,115200 %%' /boot/cmdline.txt
     cp /boot/cmdline.txt /boot/rw_cmdline.txt
     cp /boot/cmdline.txt /boot/ro_cmdline.txt
 
@@ -395,9 +397,21 @@ tweak_config() {
 dtoverlay=pps-gpio,gpiopin=18
 enable_uart=1
 
-dtoverlay=disable-bt
+#dtoverlay=disable-bt
 #dtoverlay=disable-wifi
 EOF
+
+    if [ -f /boot/firmware/config.txt ] ; then
+        cat >> /boot/firmware/config.txt <<EOF
+
+# sbts-aru extra's
+dtoverlay=pps-gpio,gpiopin=18
+enable_uart=1
+
+#dtoverlay=disable-bt
+#dtoverlay=disable-wifi
+EOF
+    fi
 }
 
 enable_ssh() {
