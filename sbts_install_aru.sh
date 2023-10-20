@@ -465,7 +465,7 @@ enable_partitioning() {
     echo ""
 
     "$SUDO_USER_HOME/sbts-bin/make_readwrite.sh"
-    if [ ! "$BULLSEYE" ; then
+    if [ ! "$BULLSEYE" ] ; then
         readlink /sbin/init > "$SUDO_USER_HOME/sbts-bin/init_location"
         rm -f /sbin/init
         ln -s "$SUDO_USER_HOME/sbts-bin/create_partitions.sh" /sbin/init
