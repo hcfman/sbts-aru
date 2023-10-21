@@ -269,6 +269,11 @@ initialize_sbts_bin() {
         mkdir "$SUDO_USER_HOME/sbts-bin" || abort "Can't create $SUDO_USER_HOME/sbts-bin"
     fi
 
+    if [ ! -d "$SUDO_USER_HOME/python" ] ; then
+        echo mkdir "$SUDO_USER_HOME/python"
+        mkdir "$SUDO_USER_HOME/python" || abort "Can't create $SUDO_USER_HOME/python"
+    fi
+
     chown "$SUDO_USER:$SUDO_USER" "$SUDO_USER_HOME/sbts-bin" || abort "Can't change ownership of $SUDO_USER_HOME/sbts-bin"
 
     cd "$HERE" || abort "Can't change back to $HERE"
@@ -283,6 +288,21 @@ initialize_sbts_bin() {
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
+
+    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.sh get_samples.sh get_temp.sh gps_event_time.sh localize_event.sh time_diffs.sh ; do
+        echo "cp $i $SUDO_USER_HOME/sbts-bin"
+        copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
+        echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
+        make_executable "$SUDO_USER_HOME/sbts-bin/$i"
+    done
+
+    # Copy python programs to $HOME/python so that they can be run in virtualenvs
+    for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py ; do
+        echo "cp $i $SUDO_USER_HOME/python"
+        copy_to "$i" "$SUDO_USER_HOME/python"
+        perl -pi -e "s/USER/$SUDO_USER_HOME/" "$i"
+    done
+
     echo "cp localize_event.py $SUDO_USER_HOME/sbts-bin"
     copy_to localize_event.py "$SUDO_USER_HOME/sbts-bin"
 }
