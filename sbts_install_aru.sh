@@ -282,17 +282,20 @@ initialize_sbts_bin() {
 
     local i
 
-    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py time_diffs.py localize_event.py ; do
+    # Copy code that doesn't need the user substituted into it
+    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh ; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
 
-    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh get_location.sh addtime.sh diff_time.sh get_samples.sh get_temp.sh gps_event_time.sh localize_event.sh time_diffs.sh ; do
+    # Copy code that needs USER replaced with the real user
+    for i in diff_time.sh get_samples.sh get_temp.sh gps_event_time.sh localize_event.sh time_diffs.sh ; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
+        perl -pi -e "s%USER%$USER%" "$SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
 
@@ -300,7 +303,6 @@ initialize_sbts_bin() {
     for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py ; do
         echo "cp $i $SUDO_USER_HOME/python"
         copy_to "$i" "$SUDO_USER_HOME/python"
-        perl -pi -e "s/USER/$SUDO_USER_HOME/" "$i"
     done
 
     echo "cp localize_event.py $SUDO_USER_HOME/sbts-bin"
@@ -320,7 +322,7 @@ turn_off_unused_services() {
         systemctl stop "$i"
     done
 
-    perl -pi -e 's%AutoEnable=true%AutoEnable=false%' /etc/bluetooth/main.cf
+    perl -pi -e 's%AutoEnable=true%AutoEnable=false%' /etc/bluetooth/main.conf
 }
 
 fix_swap() {
