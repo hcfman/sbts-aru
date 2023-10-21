@@ -16,7 +16,7 @@ def time_difference(date_time1, date_time2):
 
     return delta_seconds
 
-if __name__ == "__main__":
+def main():
     # Check if exactly 2 arguments are provided
     if len(sys.argv) != 3:
         print("Usage: python3 script.py <date_time1> <date_time2>")
@@ -26,3 +26,5 @@ if __name__ == "__main__":
     date_time2 = sys.argv[2]
 
     print(time_difference(date_time1, date_time2))
+
+main()

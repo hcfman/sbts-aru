@@ -38,5 +38,4 @@ def main():
         for time_diff in time_differences:
             print(f"{time_diff:.6f}")
 
-if __name__ == "__main__":
-    main()
+main()

@@ -57,7 +57,7 @@ def add_seconds_to_filename(filename, seconds_offset, buffer_size, show_time_onl
 
     print(new_date_time_str)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description='Calculate the exact datetime of a sample in a tracking file.')
     parser.add_argument('filename', type=str, help='Path to the tracking file')
     parser.add_argument('seconds', type=float, help='Time offset in seconds to add')
@@ -67,3 +67,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     add_seconds_to_filename(args.filename, args.seconds, args.buffer_size, args.show_time_only)
+
+main()
