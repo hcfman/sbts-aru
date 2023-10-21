@@ -293,7 +293,7 @@ initialize_sbts_bin() {
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
-        perl -pi -e "s%USER%$USER%" "$SUDO_USER_HOME/sbts-bin/$i"
+        perl -pi -e "s%USER%$SUDO_USER%" "$SUDO_USER_HOME/sbts-bin/$i"
         make_executable "$SUDO_USER_HOME/sbts-bin/$i"
     done
 
