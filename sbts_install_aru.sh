@@ -266,15 +266,13 @@ initialize_sbts_bin() {
 
     if [ ! -d "$SUDO_USER_HOME/sbts-bin" ] ; then
         echo mkdir "$SUDO_USER_HOME/sbts-bin"
-        mkdir "$SUDO_USER_HOME/sbts-bin" || abort "Can't create $SUDO_USER_HOME/sbts-bin"
+        sudo -H -u "$SUDO_USER" mkdir "$SUDO_USER_HOME/sbts-bin" || abort "Can't create $SUDO_USER_HOME/sbts-bin"
     fi
 
     if [ ! -d "$SUDO_USER_HOME/python" ] ; then
         echo mkdir "$SUDO_USER_HOME/python"
-        mkdir "$SUDO_USER_HOME/python" || abort "Can't create $SUDO_USER_HOME/python"
+        sudo -H -u "$SUDO_USER" mkdir "$SUDO_USER_HOME/python" || abort "Can't create $SUDO_USER_HOME/python"
     fi
-
-    chown "$SUDO_USER:$SUDO_USER" "$SUDO_USER_HOME/sbts-bin" || abort "Can't change ownership of $SUDO_USER_HOME/sbts-bin"
 
     cd "$HERE" || abort "Can't change back to $HERE"
 
