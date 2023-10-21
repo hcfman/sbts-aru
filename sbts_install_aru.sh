@@ -395,8 +395,8 @@ tweak_chrony_conf() {
     perl -i -e 'undef $/;my $l=<>;$l =~ s%\n(makestep.*?)\n%\012#$1\012makestep 0.001 100\012%s;print $l' /etc/chrony/chrony.conf
 
     local OFFSET
-    if [ "$is_adafruit" == "y" && "$BULLSEYE" ] ; then
-        OFFSET="0.250"
+    if [ "$is_adafruit" == "y" ] ; then
+        OFFSET="0.200"
     else
         OFFSET="0.100"
     fi
