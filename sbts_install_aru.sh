@@ -289,7 +289,7 @@ initialize_sbts_bin() {
     done
 
     # Copy code that needs USER replaced with the real user
-    for i in diff_time.sh get_samples.sh get_temp.sh gps_event_time.sh localize_event.sh time_diffs.sh ; do
+    for i in diff_time.sh get_samples.sh get_temp.sh gps_event_time.sh localize_event.sh time_diffs.sh eventtime.sh; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
@@ -298,7 +298,7 @@ initialize_sbts_bin() {
     done
 
     # Copy python programs to $HOME/python so that they can be run in virtualenvs
-    for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py ; do
+    for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py eventime.py; do
         echo "cp $i $SUDO_USER_HOME/python"
         copy_to "$i" "$SUDO_USER_HOME/python"
     done
