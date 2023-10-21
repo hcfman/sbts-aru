@@ -298,7 +298,7 @@ initialize_sbts_bin() {
     done
 
     # Copy python programs to $HOME/python so that they can be run in virtualenvs
-    for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py eventime.py; do
+    for i in diff_time.py example_localization.py get_samples.py get_temp.py gps_event_time.py localize_event.py time_diffs.py eventtime.py; do
         echo "cp $i $SUDO_USER_HOME/python"
         copy_to "$i" "$SUDO_USER_HOME/python"
     done
