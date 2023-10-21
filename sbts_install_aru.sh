@@ -465,11 +465,16 @@ enable_partitioning() {
     echo ""
 
     "$SUDO_USER_HOME/sbts-bin/make_readwrite.sh"
-    if [ ! "$BULLSEYE" ] ; then
+    #if [ ! "$BULLSEYE" ] ; then
+    if [ "" ] ; then
         readlink /sbin/init > "$SUDO_USER_HOME/sbts-bin/init_location"
         rm -f /sbin/init
         ln -s "$SUDO_USER_HOME/sbts-bin/create_partitions.sh" /sbin/init
     else
+        if [ -f /boot/firmware/cmdline.txt ] ; then
+            perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/firmware/cmdline.txt
+        fi
+
         perl -pi -e 's%$% init='"$SUDO_USER_HOME/sbts-bin/create_partitions.sh"'%' /boot/cmdline.txt
     fi
 }
