@@ -147,18 +147,12 @@ install_packages() {
     echo "Installing packages"
     echo ""
 
-    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner ; do
+    for package in jackd2 libjack-jackd2-dev libsndfile1-dev pps-tools gpsd jq git i2c-tools git python3-numpy bc ffmpeg sysvbanner python3-gps ; do
         if ! dpkg -l "$package" > /dev/null 2>&1 ; then
             echo "Installing package \"$package\""
             install_package "$package"
         fi
     done
-
-    if [ "$(uname -m)" == "aarch64" ] ; then
-        apt install -y python3-gps
-    else
-        apt install -y python-gps
-    fi
 
     install_package gpsd-clients
     apt install -y chrony
@@ -208,8 +202,11 @@ install_python_modules() {
         python3 -m pip install "$m"
     done
 
-    echo "Installing opensoundscape"
-    python3 -m pip install opensoundscape
+    # Doesn't work on Raspberry Pi zero, I'm guessing because of not enough memory. Assume 1GB is needed
+    if [ "$(awk '$1 == "MemTotal:" {print int($2 / 1024)}' /proc/meminfo)" -gt 512 ] ; then
+        echo "Installing opensoundscape"
+        python3 -m pip install opensoundscape
+    fi
 EOF
     )" || abort "Can't install virtual envs"
 }
