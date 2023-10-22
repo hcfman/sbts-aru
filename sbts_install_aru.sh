@@ -281,7 +281,7 @@ initialize_sbts_bin() {
     local i
 
     # Copy code that doesn't need the user substituted into it
-    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh cleaner.sh get_location.sh addtime.sh ; do
+    for i in sbts-aru create_partitions.sh get_min_files.sh clean.sh cleaner.sh get_location.sh ; do
         echo "cp $i $SUDO_USER_HOME/sbts-bin"
         copy_to "$i" "$SUDO_USER_HOME/sbts-bin"
         echo "chmod +x $SUDO_USER_HOME/sbts-bin/$i"
