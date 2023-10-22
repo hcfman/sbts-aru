@@ -31,7 +31,9 @@ It does this by mounting what is called an overlay file system constructed in me
 
 **Choice of OS**
 
-The install script supports the older Raspberry Pi bullseye releases as well as the newer Debian bookworm release, ready the Raspberry Pi 5.
+The install script supports both the older Raspberry Pi Bullseye releases and the newer Debian Bookworm release, ready for the Raspberry Pi 5.
+
+One thing I noticed on the Raspberry Pi 4 with Bookworm was that after the first installation, it might not work as expected. You can check this by running gpsmon. If it's not receiving data and not fully rendering the screen, this issue might be present. If you observe this, the solution is to shut down the computer with "sudo shutdown -h now" and then unplug the power adapter from the Pi to ensure all power is cut off. There might be a serial line initialization problem with Bookworm. This procedure should resolve it. All subsequent boot-ups should be fine.
 
 **First**
 
@@ -337,14 +339,13 @@ The above is showing that the system time is **"0.000000063 seconds fast of NTP 
 PPS stands for Pulse Per Second and is the line that is connected to GPIO 18. This line and interrupt is what synchronizes the slow data transmitted over the serial line with the actual point in time for which it is applied.
 
 ## About the in-memory Overlay File system ##
+I've glossed over this in the above to avoid distractions. When the sbts-aru first boots, it operates in a regular read-write (R/W) mode. However, after the first reboot, the root file system is mounted as read-only (R/O), with an in-memory Overlay File System mounted on top.
 
-I've glossed over this in the above so as not to distract. But when the sbts-aru first boots it will be in a normal read-write mode of operation. But after the first re-boot, the root file system will be mounted with a read-only mount and an in-memory Overlay File System mounted on top.
+This configuration ensures the root file system effectively appears and operates as R/W, but all write operations only occur in memory. The actual root file system, which contains the software, remains R/O, safeguarding it against corruption from unplanned power cycles or other disruptions.
 
-What this provides is a root file system that is effectively and appears R/W but all writes happen only in memory. The actual root file system with all of the software remains R/O and thus protected against corruption through unplanned power cycles or otherwise.
+However, this also implies that you shouldn't attempt to install software or write anywhere other than the ~pi/disk partition, as you'd be using and consuming memory.
 
-However, what it also means is that you shouldn't try and install any software or otherwise write to anywhere except the ~pi/disk partition as you will be writing to and consuming memory.
-
-If you wish to make make permanent changes to the rootfs, such as installing software, changing configurations in /etc/rc or crontab etc you should first reboot to the R/W configuration as follows:
+If you wish to make permanent changes to the rootfs, such as installing software or modifying configurations in /etc/rc, crontab, etc., you should first reboot into the R/W configuration as follows:
 
 **Re-booting to a R/W configuration**
 
