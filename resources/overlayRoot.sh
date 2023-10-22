@@ -95,8 +95,8 @@ if findmnt /mnt/dev ; then
     mount --move /mnt/dev /dev
 fi
 
-if findmnt /mnt/mnt/sys ; then
-    mount --move /mnt/mnt/sys /sys
+if findmnt /mnt/sys ; then
+    mount --move /mnt/sys /sys
 fi
 
 if findmnt /mnt/run ; then
