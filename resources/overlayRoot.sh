@@ -75,13 +75,11 @@ mkdir /mnt/newroot/rw
 
 # remove root mount from fstab (this is already a non-permanent modification)
 
-perl -n -e "print if ! m%^$(awk '$2 == "/" {print $1}' /etc/fstab)%" > /mnt/newroot/etc/fstab
+if ! perl -n -e "print if ! m%^$(awk '$2 == "/" {print $1}' /etc/fstab)%" > /mnt/newroot/etc/fstab ; then
+    abort "ERROR: Can't modify /mnt/newroot/etc/fstab"
+fi
 
 #grep -v "$rootDev" /mnt/lower/etc/fstab > /mnt/newroot/etc/fstab
-
-echo "#The original root mount has been removed by overlayRoot.sh" >> /mnt/newroot/etc/fstab
-echo "#this is only a temporary modification, the original fstab" >> /mnt/newroot/etc/fstab
-echo "#stored on the disk can be found in /ro/etc/fstab" >> /mnt/newroot/etc/fstab
 
 # change to the new overlay root
 cd /mnt/newroot
