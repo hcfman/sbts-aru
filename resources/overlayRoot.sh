@@ -50,7 +50,7 @@ if ! mkdir /mnt/newroot ; then
     abort "ERROR: Can't create /mnt/newroot"
 fi
 
-mkdir /mnt/mnt /mnt/proc /mnt/dev /mnt/run
+mkdir /mnt/mnt /mnt/proc /sys /mnt/dev /mnt/run
 
 # mount root filesystem readonly 
 rootDev=/dev/mmcblk0p2
@@ -93,6 +93,10 @@ mount --move /mnt/proc /proc
 
 if findmnt /mnt/dev ; then
     mount --move /mnt/dev /dev
+fi
+
+if findmnt /mnt/sys ; then
+    mount --move /mnt/sys /sys
 fi
 
 if findmnt /mnt/run ; then
