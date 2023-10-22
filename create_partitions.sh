@@ -93,10 +93,10 @@ if [ "" ] ; then
     ln -s \"\$(cat /home/$USER/sbts-bin/init_location)\" /sbin/init
 else
     if [ -f /boot/firmware/cmdline.txt ] ; then
-        perl -pi -e 's% init=.*\$%%' /boot/firmware/cmdline.txt
+        perl -pi -e 's% init=.*\$% init=/sbin/overlayRoot.sh%' /boot/firmware/cmdline.txt
     fi
 
-    perl -pi -e 's% init=.*\$%%' /boot/cmdline.txt
+    perl -pi -e 's% init=.*\$% init=/sbin/overlayRoot.sh%' /boot/cmdline.txt
 fi
 
 banner FINISHED
