@@ -73,11 +73,7 @@ mkdir /mnt/newroot/rw
 
 # remove root mount from fstab (this is already a non-permanent modification)
 
-if ! perl -n -e "print if ! m%^$(awk '$2 == "/" {print $1}' /etc/fstab)%" > /mnt/newroot/etc/fstab ; then
-    abort "ERROR: Can't modify /mnt/newroot/etc/fstab"
-fi
-
-#grep -v "$rootDev" /mnt/lower/etc/fstab > /mnt/newroot/etc/fstab
+grep -v "$rootDev" /mnt/lower/etc/fstab > /mnt/newroot/etc/fstab
 
 # change to the new overlay root
 cd /mnt/newroot
