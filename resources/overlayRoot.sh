@@ -3,8 +3,6 @@
 # Inspired greatly (and lots copied) from the original from Pascal Suter
 #
 # http://wiki.psuter.ch/doku.php?id=solve_raspbian_sd_card_corruption_issues_with_read-only_mounted_root_partition
-#
-# I'm much indebted to Pascal for this insightful script
 
 abort(){
     echo $*
