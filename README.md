@@ -31,9 +31,7 @@ It does this by mounting what is called an overlay file system constructed in me
 
 **Choice of OS**
 
-Currently this guide is based on the Raspberry Pi bullseye images dated 2023-05-03. As soon as I get a chance I'll update this for bookworm.
-
-You should choose the "lite" version of the OS. The older versions (i.e. not bookworm) can be found in the archive link on the raspberry pi download page.
+The install script supports the older Raspberry Pi bullseye releases as well as the newer Debian bookworm release, ready the Raspberry Pi 5.
 
 **First**
 
