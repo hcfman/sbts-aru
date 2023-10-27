@@ -31,9 +31,18 @@ It does this by mounting what is called an overlay file system constructed in me
 
 **Choice of OS**
 
-The install script supports both the older Raspberry Pi Bullseye releases and the newer Debian Bookworm release, ready for the Raspberry Pi 5.
+The install script supports both the older Raspberry Pi Bullseye releases and the newer Debian Bookworm release, ready for the Raspberry Pi 5. You should choose the "Lite" versions of the OS.
 
 One thing I noticed on the Raspberry Pi 4 with Bookworm was that after the first installation, it might not work as expected. You can check this by running gpsmon. If it's not receiving data and not fully rendering the screen, this issue might be present. If you observe this, the solution is to shut down the computer with "sudo shutdown -h now" and then unplug the power adapter from the Pi to ensure all power is cut off. There might be a serial line initialization problem with Bookworm. This procedure should resolve it. All subsequent boot-ups should be fine.
+
+Setting up fixed network address on Bookworm is different than before and because you will install a lite version it's handy to know how to configure IP addresses if you don't want to stay with DHCP. Fixed addresses can be obtained as in the following template example:
+
+```
+# View the current settings
+nmcli connection show "Wired connection 1"
+# Change to a fix IP address
+nmcli connection modify "Wired connection 1" ipv4.method manual ipv4.addresses 192.168.1.225/24 ipv4.gateway 192.168.1.254 ipv4.dns 192.168.1.254
+```
 
 **First**
 
