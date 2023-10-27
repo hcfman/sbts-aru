@@ -203,7 +203,7 @@ install_python_modules() {
     done
 
     # Doesn't work on Raspberry Pi zero, I'm guessing because of not enough memory. Assume 1GB is needed
-    if [ "$(awk '$1 == "MemTotal:" {print int($2 / 1024)}' /proc/meminfo)" -gt 512 ] ; then
+    if [ "$(awk '$1 == "MemTotal:" {print int($2 / 1024)}' /proc/meminfo)" -gt 1024 ] ; then
         echo "Installing opensoundscape"
         python3 -m pip install opensoundscape
     fi
