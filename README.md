@@ -43,6 +43,10 @@ nmcli connection show "Wired connection 1"
 # Change to a fix IP address
 nmcli connection modify "Wired connection 1" ipv4.method manual ipv4.addresses 192.168.1.225/24 ipv4.gateway 192.168.1.254 ipv4.dns 192.168.1.254
 ```
+If you used wifi, the you could show your current connection name with
+```
+nmcli connection show --active
+```
 
 **First**
 
