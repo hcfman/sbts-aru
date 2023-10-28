@@ -69,7 +69,7 @@ You will be prompted first to answer whether your GPS is an adafruit type (MTK33
 
 Then you will be asked to provide the hostname. The hostname becomes part of the sound file's name and should be lowercase alphanumeric or '-' characters, starting with a letter.
 
-During installation, when asked **"Do you want to enable jackd for real-time operation"** you should answer **"y"**.
+During installation, when asked **"If you want to run jackd with real time priorities"** you should answer **"y"**.
 
 The installation completes with just the one command. After many installation steps, the pi will reboot and complete some more installation steps. When the system is fully installed it will display a FINISHED banner in large letters. Once you see the login prompt, proceed to login.
 
