@@ -200,6 +200,8 @@ docker run -i localize_event
 
 The raspberry pi zero series have the lowest power usage for portable usage. Raspberry Pi Zero W is typically less than 20 euros.
 
+Having said that, if you intention is to use this portably with a battery, in view of battery life, I would suggest Raspberry Pi zero. If your intention is to use it connected to a power adapter, then I would suggest a Raspberry Pi 4 or higher because then it can also run opensoundscape to do the localizing on the Pi itself (As opposed to on another system) and you will also be ready for automatic gunshot/explosion localization when that's ready. i.e. It will have enough compute power to run a small ML model to auto-detect gunshots.
+
 **GPS capable of providing data read/write and PPS signals**
 
 These include, but are not limited to **ublox neo 6m, 7m and 8m**, as well as **Adafruit ultimate breakout boards**. The ublox modules can be obtained from aliexpress for around 7 euros. My choice would be the neo 7m.
