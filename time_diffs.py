@@ -17,10 +17,16 @@ def main():
     input_times = []
     time_differences = []
 
-    # Read lines from stdin
-    for line in sys.stdin:
-        line = line.strip()
-        input_times.append(datetime.strptime(line, "%Y-%m-%d_%H-%M-%S.%f"))
+    while True:
+        try:
+            line = input().strip()
+
+            if not line:
+                break
+
+            input_times.append(datetime.strptime(line, "%Y-%m-%d_%H-%M-%S.%f"))
+        except ValueError as e:  # Catch only value errors (i.e., formatting issues)
+            print(f"Error reading input: {e}")
 
     # Find the earliest time
     earliest_time = min(input_times)
