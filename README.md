@@ -159,6 +159,14 @@ OpenStreetMap: https://www.openstreetmap.org/?mlat=51.014906583842645&mlon=5.814
 
 Google Maps: https://www.google.com/maps?q=51.014906583842645,5.814450640699929&t=h&z=15
 ```
+
+Or run something like:
+
+```
+$ localize_event.py 10
+```
+
+to localize if the temperature was 10 degrees (Defaults to 22 degrees or a speed of sound of 343m/s)
 **Docker**
 
 You can build a docker image that runs localize_event.py as follows:
