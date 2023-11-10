@@ -550,7 +550,7 @@ else
     export BULLSEYE=1
 fi
 
-MODEL=$(cat /proc/device-tree/model)
+MODEL=$(cat /proc/device-tree/model | tr '\0' '\n')
 if [[ "$MODEL" =~ "Raspberry Pi 5" ]] ; then
     IS_PI5=1
 else
