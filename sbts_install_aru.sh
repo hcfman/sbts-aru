@@ -393,9 +393,17 @@ tweak_chrony_conf() {
 
     local OFFSET
     if [ "$is_adafruit" == "y" ] ; then
-        OFFSET="0.200"
+        if [ "$IS_PI5" ] ; then
+            OFFSET="0.600"
+        else
+            OFFSET="0.200"
+        fi
     else
-        OFFSET="0.100"
+        if [ "$IS_PI5" ] ; then
+            OFFSET="0.500"
+        else
+            OFFSET="0.100"
+        fi
     fi
 
     cat >> /etc/chrony/chrony.conf <<EOF
@@ -428,7 +436,8 @@ dtoverlay=disable-bt
 EOF
 
     if [ -f /boot/firmware/config.txt ] ; then
-        cat >> /boot/firmware/config.txt <<EOF
+        if [ "$IS_PI5" ] ; then
+            cat >> /boot/firmware/config.txt <<EOF
 
 # sbts-aru extra's
 dtoverlay=pps-gpio,gpiopin=18
@@ -437,6 +446,17 @@ enable_uart=1
 dtoverlay=disable-bt
 #dtoverlay=disable-wifi
 EOF
+        else
+            cat >> /boot/firmware/config.txt <<EOF
+
+# sbts-aru extra's
+dtoverlay=pps-gpio,gpiopin=18
+dtoverlay=uart0
+
+dtoverlay=disable-bt
+#dtoverlay=disable-wifi
+EOF
+        fi
 
     cat > /etc/modprobe.d/blacklist-pps.conf <<EOF
 blacklist pps_ldisc
@@ -528,6 +548,13 @@ if ! grep bullseye /etc/os-release > /dev/null ; then
     export BULLSEYE=
 else
     export BULLSEYE=1
+fi
+
+MODEL=$(cat /proc/device-tree/model)
+if [[ "$MODEL" =~ "Raspberry Pi 5" ]] ; then
+    IS_PI5=1
+else
+    IS_PI5=
 fi
 
 ask_about_gps
