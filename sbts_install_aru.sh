@@ -425,7 +425,18 @@ tweak_config() {
 
     perl -pi -e 's%^dtparam=audio=on%#dtparam=audio=on%' /boot/config.txt
 
-    cat >> /boot/config.txt <<EOF
+    if [ "$IS_PI5" ] ; then
+        cat >> /boot/config.txt <<EOF
+
+# sbts-aru extra's
+dtoverlay=pps-gpio,gpiopin=18
+dtoverlay=uart0
+
+dtoverlay=disable-bt
+#dtoverlay=disable-wifi
+EOF
+    else
+        cat >> /boot/config.txt <<EOF
 
 # sbts-aru extra's
 dtoverlay=pps-gpio,gpiopin=18
@@ -434,6 +445,8 @@ enable_uart=1
 dtoverlay=disable-bt
 #dtoverlay=disable-wifi
 EOF
+    fi
+
 
     if [ -f /boot/firmware/config.txt ] ; then
         if [ "$IS_PI5" ] ; then
@@ -441,7 +454,7 @@ EOF
 
 # sbts-aru extra's
 dtoverlay=pps-gpio,gpiopin=18
-enable_uart=1
+dtoverlay=uart0
 
 dtoverlay=disable-bt
 #dtoverlay=disable-wifi
@@ -451,7 +464,7 @@ EOF
 
 # sbts-aru extra's
 dtoverlay=pps-gpio,gpiopin=18
-dtoverlay=uart0
+enable_uart=1
 
 dtoverlay=disable-bt
 #dtoverlay=disable-wifi
