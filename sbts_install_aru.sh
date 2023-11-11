@@ -400,7 +400,7 @@ tweak_chrony_conf() {
         fi
     else
         if [ "$IS_PI5" ] ; then
-            OFFSET="0.500"
+            OFFSET="0.400"
         else
             OFFSET="0.100"
         fi
