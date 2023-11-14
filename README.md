@@ -287,7 +287,7 @@ With the Adafruit series, the **PPS** line at the Pi side should be bend so as t
 
 **Neo 6m and 7m**
 
-The Neo 6m and 7m have the simplest wiring as all the wires remain in a line. The power wire is connected to pin 1, then the next 4 wires connect to the Pin all in a line after skipping the first to pins. i.e. starting from pin 6.
+The Neo 6m and 7m have the simplest wiring as all the wires remain in a line. The power wire is connected to pin 1, then the next 4 wires connect to the Pin all in a line after skipping the first two pins. i.e. starting from pin 6.
 
 For all of the Neo series GPS's the PPS wiring, such as the brown wire in the photo above with the Adafruit GPS is not dragged to the back as in the Adafruit example but rather the wire is in-line with the data lines.
 
