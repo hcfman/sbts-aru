@@ -369,6 +369,7 @@ install_overlayfs() {
         perl -pi -e 's%console=serial\d,115200 %%' /boot/firmware/cmdline.txt
         cp /boot/firmware/cmdline.txt /boot/firmware/rw_cmdline.txt
         cp /boot/firmware/cmdline.txt /boot/firmware/ro_cmdline.txt
+        perl -pi -e 's%$% init=/sbin/overlayRoot.sh%' /boot/firmware/ro_cmdline.txt
     fi
 
 
