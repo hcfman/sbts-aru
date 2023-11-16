@@ -21,5 +21,8 @@ sanity_check
 
 cp /boot/ro_cmdline.txt /boot/cmdline.txt
 
+if [ -f "/boot/firmware/ro_cmdline.txt" ] ; then
+    cp /boot/firmware/ro_cmdline.txt /boot/firmware/cmdline.txt
+fi
 
 exit 0
