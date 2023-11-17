@@ -11,6 +11,8 @@
 ## Introduction: ##
 While initially conceived to augment security as part of the security software suite "StalkedByTheState", this project serves multiple purposes. It's morphed into an **Autonomous Recording Unit (ARU)**, a term prominently used in bioacoustics. What sets this ARU apart is its ability to precisely synchronize the time of arrival for audio packets whilst installed on inexpensive Raspberry Pi hardware. Coupled with a tracking file, this enables very accurate **Time Difference of Arrival (TDOA) sound localization**.
 
+With three or more distributed recorders, localize the source of sounds and output a link to google maps using the differences in time of arrival (TDOA) of the sound between the collaborating microphones.
+
 <br style="clear:both;">
 
 **Key Features:**
