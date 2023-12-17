@@ -61,8 +61,9 @@ def main():
     parser = argparse.ArgumentParser(description='Calculate the exact datetime of a sample in a tracking file.')
     parser.add_argument('filename', type=str, help='Path to the tracking file')
     parser.add_argument('seconds', type=float, help='Time offset in seconds to add')
-    parser.add_argument('buffer_size', type=int, help='Size of the audio buffer')
+    # parser.add_argument('buffer_size', type=int, help='Size of the audio buffer')
     parser.add_argument('-s', '--show-time-only', action='store_true', help='Show only the time part of the new date-time string')
+    parser.add_argument('-b', '--buffer_size', type=int, default=2048, help='Size of the audio buffer (default: 2048)')
 
     args = parser.parse_args()
 
