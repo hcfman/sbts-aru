@@ -94,7 +94,7 @@ UID        PID  PPID  C STIME TTY          TIME CMD
 pi         635     1  1 Oct04 ?        00:23:23 /usr/bin/jackd -R -dalsa -r44100 -p2048 -i1 -n2 -D -Chw:1,0 -Phw:1,0 -S
 pi         674     1  9 Oct04 ?        02:05:39 /home/pi/sbts-bin/sbts-aru -n audio_sbts1 -c audio_sbts1 -s system:capture_1 -p input -t 10 -b 44100
 ```
-The **-p2048** flag sets the buffer size and the value (2048) is used later as the last parameter in the **gps_event_time.py** command.
+The **-p2048** flag sets the buffer size and the value (2048) is used later as the last parameter in the **gps_event_time.sh** command with the **-b** option. 2048 is the default, but when recording from an ultrasonic mic at 192khz for example you would need to use a buffersize of 8192 and hence pass -b 8192 to this command.
 
 **jackd** is the real-time audio distribution daemon and is reading from the USB sound card.
 
@@ -124,10 +124,10 @@ disk/audio-sbts1/2023/2023-10/2023-10-01/2023-10-01_22-36-35.379332--audio_sbts1
 
 **Commands**
 
-To find the date and time from an event use gps_event_time.py as in the following example:
+To find the date and time from an event use gps_event_time.sh as in the following example:
 
 ```
-$ gps_event_time.py 2023-10-01_22-36-35.379332--audio_sbts1--2023-10-01_22-46-35.397175.tracking 283.6789 2048
+$ gps_event_time.sh 2023-10-01_22-36-35.379332--audio_sbts1--2023-10-01_22-46-35.397175.tracking 283.6789
 2023-10-01_22-41-19.065072
 ```
 
