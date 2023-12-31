@@ -21,6 +21,10 @@ My medium.com field test writeup:
 
 [https://medium.com/@kim_94237/tdoa-sound-localization-with-the-raspberry-pi-3e777469c4fa](https://medium.com/@kim_94237/tdoa-sound-localization-with-the-raspberry-pi-3e777469c4fa)
 
+And the hackaday article:
+
+[https://hackaday.com/2023/12/30/localizing-fireworks-launches-with-a-raspberry-pi/](https://hackaday.com/2023/12/30/localizing-fireworks-launches-with-a-raspberry-pi/)
+
 **Key Features:**
 
 1. **Sub-microsecond system time via GPS Integration:** The project is optimized to run on a raspberry pi together with a GPS and aligns the system time typically to sub-microsecond accuracy.The typical alignment error margin from the waveforms from the sound files is under 1ms. Given that sound covers approximately 34cm in 1ms, this ensures high effective sound localization, even over short distances.
