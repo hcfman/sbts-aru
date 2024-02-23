@@ -1,5 +1,19 @@
-                                 Apache License
-                           Version 2.0, January 2004
+This software is licensed permissively according to the Apache license,
+but with significant limitations on the acceptable fields of use. Those
+limitations are detailed in the ADDITION_LICENSE_REQUIREMENTS file in this
+directory.
+
+Since the Apache license is incompatible with field of use limitations,
+this software should not be considered to be Apache licensed, but rather
+is licensed under a more restrictive license specific just to this software.
+
+All provisions of the Apache license which do not conflict with these field
+of use limits still apply to this software unchanged.
+
+Please address questions about licensing to the author by filing an issue
+on GitHub.
+
+                    Restricted license (based on Apache License)                           
                         http://www.apache.org/licenses/
 
    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
