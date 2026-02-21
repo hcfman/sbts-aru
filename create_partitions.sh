@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Copyright (c) 2023 Kim Hendrikse
+# Copyright (c) Wildlife Security Innovations bv, 2026 - https://www.wildlifesecurityinnovations.com
 
 export USER="$(getent passwd 1000|cut -d: -f1)"
 cd /

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (c) 2023 Kim Hendrikse
+# Copyright (c) Wildlife Security Innovations bv, 2026 - https://www.wildlifesecurityinnovations.com
 
 export LC_ALL=C
 

@@ -17,9 +17,9 @@ With three or more distributed recorders, localize the source of sounds and outp
 
 **See also**
 
-My medium.com field test writeup:
+My website:
 
-[https://medium.com/@kim_94237/tdoa-sound-localization-with-the-raspberry-pi-3e777469c4fa](https://medium.com/@kim_94237/tdoa-sound-localization-with-the-raspberry-pi-3e777469c4fa)
+[https://www.wildlifesecurityinnovations.com/projects/sound-localization/](https://www.wildlifesecurityinnovations.com/projects/sound-localization/)
 
 And the hackaday article:
 

@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Copyright (c) 2023 Kim Hendrikse
+# Copyright (c) Wildlife Security Innovations bv, 2026 - https://www.wildlifesecurityinnovations.com
 
 import argparse
 from datetime import datetime, timedelta

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright (C) Kim Hendrikse, 2023
+# Copyright (C) Wildlife Security Innovations bv, 2026 - https://www.wildlifesecurityinnovations.com
 
 # Check if required arguments are provided
 if [[ $# -ne 4 ]]; then

@@ -1,4 +1,4 @@
-// Copyright (c) 2023 Kim Hendrikse
+// Copyright (c) Wildlife Security Innovations bv, 2026 - https://www.wildlifesecurityinnovations.com
 
 #include <chrono>
 #include <jack/jack.h>
